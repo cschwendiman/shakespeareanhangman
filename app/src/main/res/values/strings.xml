@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Shakespearean Hangman</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Main Menu Strings -->
+    <string name="new_game">New Game</string>
+    <string name="two_player_game">Two-Player Game</string>
+    <string name="player_profiles">Player Profiles</string>
+    <string name="options">Options</string>
+    <string name="about">About</string>
+
+    <!-- Options -->
+
+    <!-- About -->
+    <string name="about_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu eros eget justo
+        vulputate rhoncus. Integer laoreet mollis commodo. Sed ac luctus nunc. Pellentesque ut vehicula est, vitae
+        pulvinar magna. Nunc in nibh non mauris ornare tempor. Proin faucibus elit est, a porttitor eros auctor
+        consectetur.
+    </string>
+    <string name="image_attribution">"Shakespeare Cobbe portrait detail" by Unknown; photo by Lefteris
+        Pitarakis/Associated Press -
+        http://thelede.blogs.nytimes.com/2009/03/09/portrait-of-shakespeare-unveiled-399-years-late/?hp. Licensed under
+        Public Domain via Wikimedia Commons -
+        http://commons.wikimedia.org/wiki/File:Shakespeare_Cobbe_portrait_detail.jpg#/media/File:Shakespeare_Cobbe_portrait_detail.jpg
+    </string>
+    <string name="title_activity_about">AboutActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
+</resources>
