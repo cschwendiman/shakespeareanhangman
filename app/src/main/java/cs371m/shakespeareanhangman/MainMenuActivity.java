@@ -1,15 +1,15 @@
 package cs371m.shakespeareanhangman;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
-public class MainMenuActivity extends ActionBarActivity {
+public class MainMenuActivity extends Activity {
     private String TAG = "Main Menu Activity";
 
     @Override
