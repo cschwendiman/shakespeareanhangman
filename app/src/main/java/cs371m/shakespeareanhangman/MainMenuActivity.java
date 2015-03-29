@@ -46,8 +46,9 @@ public class MainMenuActivity extends Activity {
         Intent intent;
         switch (view.getId()) {
             case R.id.new_game_button:
-                //intent = new Intent(this, GameActivity.class);
-                //startActivity(intent);
+                Log.d(TAG, "New Game Button");
+                intent = new Intent(this, GameActivity.class);
+                startActivity(intent);
                 break;
             case R.id.two_player_game_button:
                 //intent = new Intent(this, GameActivity.class);

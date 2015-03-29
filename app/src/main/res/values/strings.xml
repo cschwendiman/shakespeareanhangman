@@ -13,6 +13,7 @@
     <!-- Options -->
 
     <!-- About -->
+    <string name="title_activity_about">AboutActivity</string>
     <string name="about_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu eros eget justo
         vulputate rhoncus. Integer laoreet mollis commodo. Sed ac luctus nunc. Pellentesque ut vehicula est, vitae
         pulvinar magna. Nunc in nibh non mauris ornare tempor. Proin faucibus elit est, a porttitor eros auctor
@@ -24,8 +25,12 @@
         Public Domain via Wikimedia Commons -
         http://commons.wikimedia.org/wiki/File:Shakespeare_Cobbe_portrait_detail.jpg#/media/File:Shakespeare_Cobbe_portrait_detail.jpg
     </string>
-    <string name="title_activity_about">AboutActivity</string>
 
-    <string name="hello_world">Hello world!</string>
-
+    <!-- Game -->
+    <string name="title_activity_game">GameActivity</string>
+    <string-array name="keyboard">
+        <item>QWERTYUIOP</item>
+        <item>ASDFGHJKL</item>
+        <item>ZXCVBNM</item>
+    </string-array>
 </resources>
