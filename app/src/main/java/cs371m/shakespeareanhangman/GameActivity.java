@@ -16,7 +16,7 @@ import android.widget.RelativeLayout.LayoutParams;
 public class GameActivity extends Activity {
     private static final String TAG = "Game Activity";
 
-    //private HangmanGame game;
+    private HangmanGame game;
     private GameBoard gameBoard;
 
     @Override
@@ -26,10 +26,11 @@ public class GameActivity extends Activity {
         createKeyboard();
 
         //Prefs prefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
-        //game = new HangmanGame();
+        game = new HangmanGame();
+        // TODO: Pass in difficulty and game phrase here!
 
         gameBoard = (GameBoard) findViewById(R.id.game_board);
-        //gameBoard.setGame(game);
+        gameBoard.setGame(game);
     }
 
 
@@ -88,18 +89,25 @@ public class GameActivity extends Activity {
 
     }
 
-    private void chooseLetter(String letter) {
-        assert(letter.length() == 1);
-        //game.chooseLetter(letter);
+    private void makeGuess(char letter) {
+        game.makeGuess(letter);
         gameBoard.invalidate();
         //if(mSoundOn) {
         //    mSounds.play(mSoundIDMap.get(R.raw.human_move), 1, 1, 1, 0, 1);
         //}
 
-        boolean isGameOver = false;
-        //if (game.isGameOver()) {
-        //  endGame();
-        //}
+        /*
+        switch (game.checkGameStatus()) {
+            case HangmanGame.Status.PLAYER_WIN:
+                return;
+            case HangmanGame.Status.PLAYER_LOSS:
+                endGame();
+                return;
+            case HangmanGame.Status.ONGOING:
+                //do nothing
+                return;
+        }
+        */
     }
 
     private void endGame() {
@@ -112,9 +120,9 @@ public class GameActivity extends Activity {
     private View.OnClickListener keyboardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String move = ((Button) v).getText().toString();
+            char move = ((Button) v).getText().charAt(0);
             Log.d(TAG, " Button Clicked: " + move);
-            chooseLetter(move);
+            makeGuess(move);
             v.setVisibility(View.INVISIBLE);
         }
     };

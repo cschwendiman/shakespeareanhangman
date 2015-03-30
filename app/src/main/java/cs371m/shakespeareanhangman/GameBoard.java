@@ -9,6 +9,7 @@ import android.view.View;
  */
 public class GameBoard extends View {
     public static final String TAG = "GameBoard";
+    private HangmanGame game;
     
     // game logic var
 
@@ -33,8 +34,8 @@ public class GameBoard extends View {
 
     }
 
-    public void setGame() {
-        // Take game logic param
+    public void setGame(HangmanGame gameObject) {
+        game = gameObject;
     }
 
     public void onDraw() {
