@@ -10,7 +10,7 @@ import android.view.View;
 
 
 public class MainMenuActivity extends Activity {
-    private String TAG = "Main Menu Activity";
+    private static final String TAG = "Main Menu Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,9 @@ public class MainMenuActivity extends Activity {
         Intent intent;
         switch (view.getId()) {
             case R.id.new_game_button:
-                //intent = new Intent(this, GameActivity.class);
-                //startActivity(intent);
+                Log.d(TAG, "New Game Button");
+                intent = new Intent(this, GameActivity.class);
+                startActivity(intent);
                 break;
             case R.id.two_player_game_button:
                 //intent = new Intent(this, GameActivity.class);
