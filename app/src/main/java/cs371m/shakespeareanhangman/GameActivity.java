@@ -92,22 +92,23 @@ public class GameActivity extends Activity {
     private void makeGuess(char letter) {
         game.makeGuess(letter);
         gameBoard.invalidate();
+
         //if(mSoundOn) {
         //    mSounds.play(mSoundIDMap.get(R.raw.human_move), 1, 1, 1, 0, 1);
         //}
 
-        /*
+
         switch (game.checkGameStatus()) {
-            case HangmanGame.Status.PLAYER_WIN:
+            case PLAYER_WIN:
                 return;
-            case HangmanGame.Status.PLAYER_LOSS:
+            case PLAYER_LOSS:
                 endGame();
                 return;
-            case HangmanGame.Status.ONGOING:
+            case ONGOING:
                 //do nothing
                 return;
         }
-        */
+
     }
 
     private void endGame() {
