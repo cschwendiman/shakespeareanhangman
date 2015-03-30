@@ -14,13 +14,22 @@ import android.widget.RelativeLayout.LayoutParams;
 
 
 public class GameActivity extends Activity {
-    private String TAG = "Game Activity";
+    private static final String TAG = "Game Activity";
+
+    //private HangmanGame game;
+    private GameBoard gameBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         createKeyboard();
+
+        //Prefs prefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
+        //game = new HangmanGame();
+
+        gameBoard = (GameBoard) findViewById(R.id.game_board);
+        //gameBoard.setGame(game);
     }
 
 
@@ -74,13 +83,38 @@ public class GameActivity extends Activity {
         layout.addView(keyboardLayout);
     }
 
+    private void startNewGame() {
+        gameBoard.invalidate();
+
+    }
+
+    private void chooseLetter(String letter) {
+        assert(letter.length() == 1);
+        //game.chooseLetter(letter);
+        gameBoard.invalidate();
+        //if(mSoundOn) {
+        //    mSounds.play(mSoundIDMap.get(R.raw.human_move), 1, 1, 1, 0, 1);
+        //}
+
+        boolean isGameOver = false;
+        //if (game.isGameOver()) {
+        //  endGame();
+        //}
+    }
+
+    private void endGame() {
+        Log.d(TAG, "Game Ended");
+        // TODO: Redirect to status activity
+        // Call finish to remove activity from stack
+        finish();
+    }
+
     private View.OnClickListener keyboardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String move = ((Button) v).getText().toString();
             Log.d(TAG, " Button Clicked: " + move);
-            // TODO: Send game logic the user's move
-
+            chooseLetter(move);
             v.setVisibility(View.INVISIBLE);
         }
     };
