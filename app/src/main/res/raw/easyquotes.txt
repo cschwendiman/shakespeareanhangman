@@ -1,36 +1,25 @@
+12
 To be, or not to be: that is the question.
 Hamlet
-0 0
 Romeo, Romeo, wherefore art thou Romeo?
 Romeo & Juliet
-0 0
 A rose by any other name would smell as sweet.
 Romeo & Juliet
-0 0
 If you prick us do we not bleed?
 The Merchant of Venice
-0 0
 All the world's a stage, and all the men and women merely players.
 Blah
-0 0
 Brevity is the soul of wit.
 Hamlet
-0 0
 Love is not love that alters when it alteration finds.
 Sonnets
-0 0
 And, most dear actors, eat no onions nor garlic.
 A Midsummer Night's Dream
-0 0
 Lord, what fools these mortals be!
 A Midsummer Night's Dream
-0 0
 The course of true love never did run smooth.
-A Midsummer Night's Dream
-1 1
+A Midsummer Night's Dream, Act 1 Scene 1
 We are such stuff as dreams are made on.
-The Tempest
-4 1
+The Tempest, Act 4 Scene 1
 Oh brave new world that has such people in it.
-The Tempest
-5 1
+The Tempest, Act 5 Scene 1

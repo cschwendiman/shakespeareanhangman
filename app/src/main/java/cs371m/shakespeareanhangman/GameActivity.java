@@ -1,6 +1,7 @@
 package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,12 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Random;
+
 
 public class GameActivity extends Activity {
     private static final String TAG = "Game Activity";
 
     private HangmanGame game;
     private GameBoard gameBoard;
+
+    // Storing the chosen secret phrase for later
+    // Perhaps we will want to put it in SharedPreferences so we can display the correct answer on the game results screen?
+    private Phrase secretPhrase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +38,72 @@ public class GameActivity extends Activity {
         createKeyboard();
 
         //Prefs prefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
-        game = new HangmanGame();
-        // TODO: Pass in difficulty and game phrase here!
+
+        // TODO: get difficulty level from options
+        int difficultyLevel = 1;
+
+        // Choose the secret phrase and store as a Phrase object for later
+        this.secretPhrase = getSecretPhrase(difficultyLevel);
+
+        // Kickoff the game logic
+        game = new HangmanGame(secretPhrase.getQuote());
 
         gameBoard = (GameBoard) findViewById(R.id.game_board);
         gameBoard.setGame(game);
+    }
+
+    /*
+     * This method uses the text files in res/raw to choose a secret phrase
+     * Input: difficulty level (determines which file to use to get a phrase)
+     * Output: Phrase object (stores the quote and the name of the play it's from)
+     */
+    private Phrase getSecretPhrase(int difficultyLevel) {
+        Resources r = getResources();
+        Phrase chosenPhrase = new Phrase("ERROR", "ERROR");
+
+        try {
+            // TODO: Get the appropriate quotes file based on the difficulty level
+            InputStream quotes = r.openRawResource(R.raw.easyquotes);
+
+            InputStreamReader inputStreamReader = new InputStreamReader(quotes);
+            BufferedReader br = new BufferedReader(inputStreamReader);
+
+            /* Note on the file format:
+             * First line has a single int with the total number of quotes in the file
+             * Then each quote is represented in the following three-line format:
+             * First line is the quote
+             * Second line is the name of the play or sonnet it was from
+             */
+            // TODO: add better logic to avoid repeating phrases. Perhaps store record of used phrases in SharedPreferences?
+
+            // Get the total number of quotes
+            int numQuotes = Integer.parseInt(br.readLine());
+
+            // Choose a random quote number
+            Random rand = new Random();
+            int targetQuoteNum = rand.nextInt() % numQuotes;
+
+            // Go to the correct quote
+            int quoteNum = 0;
+            while (quoteNum < targetQuoteNum) {
+                // Skip the next quote
+                br.readLine();
+                br.readLine();
+                quoteNum++;
+            }
+
+            // Now we're at the correct quote, so parse it and store as a Phrase
+            String quote = br.readLine();
+            String play = br.readLine();
+            chosenPhrase = new Phrase(quote, play);
+
+            br.close();
+
+        } catch (IOException e) {
+            // Auto-generated catch block
+            e.printStackTrace();
+        }
+        return chosenPhrase;
     }
 
 
@@ -127,4 +200,26 @@ public class GameActivity extends Activity {
             v.setVisibility(View.INVISIBLE);
         }
     };
+
+    /*
+     * A little class to store information about the secret phrase
+     * Inputs: the secret phrase, the name of the play or sonnet it's from
+     */
+    private class Phrase {
+        private String quote;
+        private String play;
+
+        public Phrase(String quote, String play) {
+            this.quote = quote;
+            this.play = play;
+        }
+
+        public String getQuote() {
+            return quote;
+        }
+
+        public String getPlay() {
+            return play;
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class HangmanGame {
     public enum Status {PLAYER_WIN, PLAYER_LOSS, ONGOING};
 
     // Game difficulty level
-    private int difficultyLevel;
+    //private int difficultyLevel;
 
     // Game secret phrase
     private String secretPhrase;
@@ -31,27 +31,20 @@ public class HangmanGame {
     private int wrongGuesses;
 
     // Constructor
-    public HangmanGame() {
-        // Set difficulty level
-        difficultyLevel = 1;  // TODO get level from options
+    public HangmanGame(String secretPhrase) {
+        // Set requested secret phrase
+        this.secretPhrase = secretPhrase;
         // Set number of wrong guesses so far
         wrongGuesses = 0;
-        // Get secret phrase for this game
-        //setupPhrases(difficultyLevel);
-        secretPhrase = generateSecretPhrase(difficultyLevel);
         // Get the phrase with unrevealed characters blanked out
         currentPhrase = generateHiddenPhrase(secretPhrase);
     }
 
-/*    private void setupPhrases() {
-        Resources r = getResources();
-       InputStream quotes = r.openRawResource(R.raw.easyquotes);
-    }*/
 
     // Chooses a secret phrase for the game based on the difficulty level
-    private String generateSecretPhrase(int difficultyLevel) {
+/*    private String generateSecretPhrase(int difficultyLevel) {
         return "To be or not to be, that is the question.";  // TODO
-    }
+    }*/
 
     // Replaces all letters in the secret phrase with the "hidden letter" character
     private String generateHiddenPhrase(String secretPhrase) {
@@ -71,20 +64,19 @@ public class HangmanGame {
      * Resets the game by resetting the difficulty level, number of wrong guesses,
      * secret phrase, and current phrase.
      */
-    public void resetGame() {
-        difficultyLevel = 1; //TODO
+/*    public void resetGame() {
         wrongGuesses = 0;
         secretPhrase = generateSecretPhrase(difficultyLevel);
         currentPhrase = generateHiddenPhrase(secretPhrase);
-    }
+    }*/
 
     public String getCurrentPhrase() {
         return currentPhrase;
     }
 
-    public int getDifficultyLevel() {
+/*    public int getDifficultyLevel() {
         return difficultyLevel;
-    }
+    }*/
 
     public int getWrongGuesses() {
         return wrongGuesses;
@@ -145,37 +137,6 @@ public class HangmanGame {
         return wrongGuesses == MAX_WRONG_GUESSES;
     }
 
-
-/*    private class Phrase {
-        private String quote;
-        private String play;
-        private int act;
-        private int scene;
-
-        public Phrase(String quote, String play, int act, int scene) {
-            this.quote = quote;
-            this.play = play;
-            this.act = act;
-            this.scene = scene;
-        }
-
-        public String getQuote() {
-            return quote;
-        }
-
-        public String getPlay() {
-            return play;
-        }
-
-        public int getAct() {
-            return act;
-        }
-
-        public int getScene() {
-            return scene;
-        }
-
-    }*/
 }
 
 
