@@ -62,8 +62,16 @@ public class GameActivity extends Activity {
         Phrase chosenPhrase = new Phrase("ERROR", "ERROR");
 
         try {
+            InputStream quotes = null;
+
             // TODO: Get the appropriate quotes file based on the difficulty level
-            InputStream quotes = r.openRawResource(R.raw.easyquotes);
+            if(difficultyLevel == 0) {
+                quotes = r.openRawResource(R.raw.easyquotes);
+            } else if(difficultyLevel == 1) {
+                quotes = r.openRawResource(R.raw.mediumquotes);
+            } else if(difficultyLevel == 2) {
+                quotes = r.openRawResource(R.raw.hardquotes);
+            }
 
             InputStreamReader inputStreamReader = new InputStreamReader(quotes);
             BufferedReader br = new BufferedReader(inputStreamReader);
