@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="cs371m.shakespeareanhangman.Options">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sound: "
+        android:id="@+id/toggle_sound_button"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:onClick="buttonClick"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/cateImageView"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Difficulty Level"
+        android:id="@+id/diff_button"
+        android:clickable="true"
+        android:layout_below="@+id/toggle_sound_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="buttonClick"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cateImageView" android:layout_alignParentTop="false"
+        android:src="@drawable/cate"
+        android:layout_alignParentRight="false" android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="cate pic"
+
+        />
+
+
+
+</RelativeLayout>
