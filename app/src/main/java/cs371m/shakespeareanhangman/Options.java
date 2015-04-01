@@ -11,12 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.LayoutInflater;
-import android.widget.LinearLayout;
-import android.widget.Button;
-import android.content.Context;
-import android.widget.PopupWindow;
-import android.view.Gravity;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class Options extends Activity {
@@ -24,10 +19,9 @@ public class Options extends Activity {
 
     private boolean soundToggle;
     private int difficulty;
-
     private SharedPreferences mPrefs;
-
     private String TAG = "Options Menu Activity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,8 +32,13 @@ public class Options extends Activity {
         mPrefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
         soundToggle = mPrefs.getBoolean("soundToggle",false);
+        Switch sw = (Switch) findViewById(R.id.toggle_sound_button);
+        if(soundToggle)//then set the switch to show on
+            sw.toggle();
+
+
         difficulty = mPrefs.getInt("difficulty",0);
-        Log.d(TAG, "Here in onCreate the difficulty is " + difficulty);
+        Log.d(TAG, "Here in onCreate the difficulty is " + difficulty + "and the sound is " + soundToggle);
 
     }
 
