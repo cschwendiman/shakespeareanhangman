@@ -59,12 +59,12 @@ public class MainMenuActivity extends Activity {
                 //startActivity(intent);
                 break;
             case R.id.options_button:
-                Log.d(TAG, "Options Button presseeeddessedd");
+                Log.d(TAG, "Options Button pressed");
                 intent = new Intent(this, Options.class);
                 startActivity(intent);
                 break;
             case R.id.about_button:
-                Log.d(TAG, "About Button was pressedddd");
+                Log.d(TAG, "About Button was pressed");
                 intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
                 break;

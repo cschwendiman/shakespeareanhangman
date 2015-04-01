@@ -138,43 +138,13 @@ public class Options extends Activity {
                     soundToggle = true;
                     //give some indication sound is on
                     Log.d(TAG,"sound is on:" + soundToggle);
-
                     //do we want to make the sound go on immediately or wait to activate it once the game is back on?
                     //is there constant background noise or is sound only a thing in a game?
                 }
                 break;
             case R.id.diff_button:
-
                 showDialog(0);
-
-
-                break;    // this case
-
-
-                /*
-                Button b = (Button) findViewById(R.id.diff_button);
-
-                switch (difficulty)
-                {
-                    case 0:
-                        b.setText("1");
-                        difficulty = 1;
-                        break;
-                    case 1:
-                        b.setText("2");
-                        difficulty = 2;
-                        break;
-                    case 2:
-                        b.setText("0");
-                        difficulty = 0;
-                        break;
-                }
-
-                System.out.println("difficulty is set to " + difficulty);
-
-                Log.d(TAG,"difficulty is set to " + difficulty);
                 break;
-                //*/
         }
     }
 }

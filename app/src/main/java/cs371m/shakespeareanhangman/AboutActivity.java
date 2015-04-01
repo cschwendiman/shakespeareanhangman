@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-//comment
 
 public class AboutActivity extends Activity {
     public static final String TAG = "AboutActivity";
