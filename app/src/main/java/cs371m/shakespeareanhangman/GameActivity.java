@@ -7,9 +7,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -171,6 +169,7 @@ public class GameActivity extends Activity {
         LinearLayout bottomLayout = (LinearLayout) findViewById(R.id.bottom_layout);
         String[] keyboard = getResources().getStringArray(R.array.keyboard);
         LayoutParams rowParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams keyParams = new LayoutParams(42, 42);
         for (String row : keyboard) {
             LinearLayout rowLayout = new LinearLayout(this);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -182,6 +181,10 @@ public class GameActivity extends Activity {
                 button.setText(String.valueOf(key));
                 button.setTag(Character.toLowerCase(key));
                 button.setOnClickListener(keyboardClickListener);
+                button.setLayoutParams(keyParams);
+                button.setPadding(0, 0, 0, 0);
+                button.setTextSize(15);
+                button.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
                 rowLayout.addView(button);
             }
             bottomLayout.addView(rowLayout);
