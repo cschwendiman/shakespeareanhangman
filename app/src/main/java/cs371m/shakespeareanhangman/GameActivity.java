@@ -1,22 +1,19 @@
 package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.*;
 import android.widget.RelativeLayout.LayoutParams;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,7 +24,12 @@ public class GameActivity extends Activity {
     private static final String TAG = "Game Activity";
 
     private HangmanGame game;
-    private GameBoard gameBoard;
+    private BoardView board;
+    private TextView phraseView;
+
+    private SharedPreferences prefs;
+    private boolean soundOn;
+    private int difficultyLevel;
 
     // Control the sounds
     private SoundPool sounds;
@@ -44,10 +46,9 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
         createKeyboard();
 
-        //Prefs prefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
-
-        // TODO: get difficulty level from options
-        int difficultyLevel = 1;
+        prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+        soundOn = prefs.getBoolean("soundToggle",false);
+        difficultyLevel = prefs.getInt("difficulty",0);
 
         // Choose the secret phrase and store as a Phrase object for later
         this.secretPhrase = getSecretPhrase(difficultyLevel);
@@ -55,8 +56,11 @@ public class GameActivity extends Activity {
         // Kickoff the game logic
         game = new HangmanGame(secretPhrase.getQuote());
 
-        gameBoard = (GameBoard) findViewById(R.id.game_board);
-        gameBoard.setGame(game);
+        // Init views
+        phraseView = (TextView) findViewById(R.id.phrase);
+        phraseView.setText(game.getCurrentPhrase());
+        board = (BoardView) findViewById(R.id.board);
+        board.setGame(game);
     }
 
     @Override
@@ -139,6 +143,7 @@ public class GameActivity extends Activity {
         return chosenPhrase;
     }
 
+    //TODO: Remove menu stuff??
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,14 +168,7 @@ public class GameActivity extends Activity {
     }
 
     private void createKeyboard() {
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game);
-        LinearLayout keyboardLayout = new LinearLayout(this);
-        keyboardLayout.setOrientation(LinearLayout.VERTICAL);
-        keyboardLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        LayoutParams keyboardLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        keyboardLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        keyboardLayout.setLayoutParams(keyboardLayoutParams);
-
+        LinearLayout bottomLayout = (LinearLayout) findViewById(R.id.bottom_layout);
         String[] keyboard = getResources().getStringArray(R.array.keyboard);
         LayoutParams rowParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         for (String row : keyboard) {
@@ -182,16 +180,16 @@ public class GameActivity extends Activity {
                 Log.d(TAG, "Create Button: " + key);
                 Button button = new Button(this);
                 button.setText(String.valueOf(key));
+                button.setTag(Character.toLowerCase(key));
                 button.setOnClickListener(keyboardClickListener);
                 rowLayout.addView(button);
             }
-            keyboardLayout.addView(rowLayout);
+            bottomLayout.addView(rowLayout);
         }
-        layout.addView(keyboardLayout);
     }
 
     private void startNewGame() {
-        gameBoard.invalidate();
+        board.invalidate();
 
     }
 
@@ -203,19 +201,15 @@ public class GameActivity extends Activity {
         } else {
             sounds.play(incorrectSoundID, 1, 1, 1, 0, 1);
         }
-
-        gameBoard.invalidate();
-
-        //if(mSoundOn) {
-        //    mSounds.play(mSoundIDMap.get(R.raw.human_move), 1, 1, 1, 0, 1);
-        //}
-
+        phraseView.setText(game.getCurrentPhrase());
+        board.invalidate();
 
         switch (game.checkGameStatus()) {
             case PLAYER_WIN:
+                endGame(true);
                 return;
             case PLAYER_LOSS:
-                endGame();
+                endGame(false);
                 return;
             case ONGOING:
                 //do nothing
@@ -224,8 +218,9 @@ public class GameActivity extends Activity {
 
     }
 
-    private void endGame() {
+    private void endGame(boolean status) {
         Log.d(TAG, "Game Ended");
+        Log.d(TAG, status ? "WIN" : "LOSE");
         // TODO: Redirect to status activity
         // Call finish to remove activity from stack
         finish();
@@ -234,7 +229,7 @@ public class GameActivity extends Activity {
     private View.OnClickListener keyboardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            char move = ((Button) v).getText().charAt(0);
+            char move = (char) v.getTag();
             Log.d(TAG, " Button Clicked: " + move);
             makeGuess(move);
             v.setVisibility(View.INVISIBLE);
