@@ -3,6 +3,8 @@ package cs371m.shakespeareanhangman;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +30,11 @@ public class GameActivity extends Activity {
     private SharedPreferences prefs;
     private boolean soundOn;
     private int difficultyLevel;
+
+    // Control the sounds
+    private SoundPool sounds;
+    private int correctSoundID;
+    private int incorrectSoundID;
 
     // Storing the chosen secret phrase for later
     // Perhaps we will want to put it in SharedPreferences so we can display the correct answer on the game results screen?
@@ -56,6 +63,24 @@ public class GameActivity extends Activity {
         board.setGame(game);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sounds = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+        correctSoundID = sounds.load(this, R.raw.clapping, 1);
+        incorrectSoundID = sounds.load(this, R.raw.no, 1);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(sounds != null) {
+            sounds.release();
+            sounds = null;
+        }
+    }
+
     /*
      * This method uses the text files in res/raw to choose a secret phrase
      * Input: difficulty level (determines which file to use to get a phrase)
@@ -66,8 +91,16 @@ public class GameActivity extends Activity {
         Phrase chosenPhrase = new Phrase("ERROR", "ERROR");
 
         try {
-            // TODO: Get the appropriate quotes file based on the difficulty level
-            InputStream quotes = r.openRawResource(R.raw.easyquotes);
+            InputStream quotes = null;
+
+            // Get the appropriate file based on the difficulty level
+            if(difficultyLevel == 0) {
+                quotes = r.openRawResource(R.raw.easyquotes);
+            } else if(difficultyLevel == 1) {
+                quotes = r.openRawResource(R.raw.mediumquotes);
+            } else if(difficultyLevel == 2) {
+                quotes = r.openRawResource(R.raw.hardquotes);
+            }
 
             InputStreamReader inputStreamReader = new InputStreamReader(quotes);
             BufferedReader br = new BufferedReader(inputStreamReader);
@@ -161,14 +194,15 @@ public class GameActivity extends Activity {
     }
 
     private void makeGuess(char letter) {
-        game.makeGuess(letter);
+        boolean guessCorrect = game.makeGuess(letter);
+
+        if(guessCorrect) {
+            sounds.play(correctSoundID, 1, 1, 1, 0, 1);
+        } else {
+            sounds.play(incorrectSoundID, 1, 1, 1, 0, 1);
+        }
         phraseView.setText(game.getCurrentPhrase());
         board.invalidate();
-
-        //if(mSoundOn) {
-        //    mSounds.play(mSoundIDMap.get(R.raw.human_move), 1, 1, 1, 0, 1);
-        //}
-
 
         switch (game.checkGameStatus()) {
             case PLAYER_WIN:
