@@ -1,6 +1,7 @@
 package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.media.AudioManager;
@@ -226,7 +227,11 @@ public class GameActivity extends Activity {
     private void endGame(boolean status) {
         Log.d(TAG, "Game Ended");
         Log.d(TAG, status ? "WIN" : "LOSE");
-        // TODO: Redirect to status activity
+        Intent intent = new Intent(this, ResultsActivity.class);
+        intent.putExtra("status", status);
+        intent.putExtra("phrase", secretPhrase.getQuote());
+        intent.putExtra("play", secretPhrase.getPlay());
+        startActivity(intent);
         // Call finish to remove activity from stack
         finish();
     }

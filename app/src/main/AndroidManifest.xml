@@ -28,6 +28,10 @@
             android:name=".OptionsActivity"
             android:label="@string/title_activity_options" >
         </activity>
+        <activity
+            android:name=".ResultsActivity"
+            android:label="@string/title_activity_results" >
+        </activity>
     </application>
 
 </manifest>

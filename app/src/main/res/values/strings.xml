@@ -31,4 +31,10 @@
         <item>ASDFGHJKL</item>
         <item>ZXCVBNM</item>
     </string-array>
+
+    <!-- Result -->
+    <string name="title_activity_results">ResultsActivity</string>
+    <string name="result_win">You Won!</string>
+    <string name="result_loss">You Lost!</string>
+    <string name="answer_is">The answer is:</string>
 </resources>
