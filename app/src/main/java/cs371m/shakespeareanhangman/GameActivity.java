@@ -199,10 +199,12 @@ public class GameActivity extends Activity {
     private void makeGuess(char letter) {
         boolean guessCorrect = game.makeGuess(letter);
 
-        if(guessCorrect) {
-            sounds.play(correctSoundID, 1, 1, 1, 0, 1);
-        } else {
-            sounds.play(incorrectSoundID, 1, 1, 1, 0, 1);
+        if (soundOn) {
+            if (guessCorrect) {
+                sounds.play(correctSoundID, 1, 1, 1, 0, 1);
+            } else {
+                sounds.play(incorrectSoundID, 1, 1, 1, 0, 1);
+            }
         }
         phraseView.setText(game.getCurrentPhrase());
         board.invalidate();
