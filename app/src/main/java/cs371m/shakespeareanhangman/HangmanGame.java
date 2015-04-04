@@ -91,26 +91,21 @@ public class HangmanGame {
             Log.d(TAG, "ERROR: Sent a non-letter as a guess");
         }
 
-        boolean success;
+        boolean success = false;
 
-        if(secretPhrase.indexOf(guess) != -1) {
-            success = true;
-
-            // Update the current phrase with the correctly guessed letter revealed
-            StringBuilder newCurrentPhrase = new StringBuilder();
-            for(int i = 0; i < currentPhrase.length(); i++) {
-                if(Character.toLowerCase(secretPhrase.charAt(i)) == guess) {
-                    newCurrentPhrase.append(secretPhrase.charAt(i));
-                } else {
-                    newCurrentPhrase.append(currentPhrase.charAt(i));
-                }
+        // Update the current phrase with the correctly guessed letter revealed
+        StringBuilder newCurrentPhrase = new StringBuilder(currentPhrase);
+        for(int i = 0; i < currentPhrase.length(); i++) {
+            char currentChar = secretPhrase.charAt(i);
+            if(Character.toLowerCase(currentChar) == guess) {
+                success = true;
+                newCurrentPhrase.setCharAt(i, currentChar);
             }
+        }
+        currentPhrase = newCurrentPhrase.toString();
 
-            currentPhrase = newCurrentPhrase.toString();
-
-        } else {
+        if ( ! success) {
             wrongGuesses++;
-            success = false;
         }
         return success;
 
