@@ -14,34 +14,31 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class Options extends Activity {
-
-
+public class OptionsActivity extends Activity {
     private boolean soundToggle;
     private int difficulty;
-    private SharedPreferences mPrefs;
-    private String TAG = "Options Menu Activity";
+    private SharedPreferences prefs;
+    private String TAG = "Options Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options2);
+        setContentView(R.layout.activity_options);
 
         //create shared preferences object
-        mPrefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+        prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
-        soundToggle = mPrefs.getBoolean("soundToggle",false);
+        soundToggle = prefs.getBoolean("soundToggle",false);
         Switch sw = (Switch) findViewById(R.id.toggle_sound_button);
         if(soundToggle)//then set the switch to show on
             sw.toggle();
 
 
-        difficulty = mPrefs.getInt("difficulty",0);
+        difficulty = prefs.getInt("difficulty",0);
         Log.d(TAG, "Here in onCreate the difficulty is " + difficulty + "and the sound is " + soundToggle);
 
     }
-
 
     protected void onStop()
     {
@@ -49,15 +46,12 @@ public class Options extends Activity {
 
         super.onStop();
 
-        SharedPreferences.Editor ed = mPrefs.edit();
+        SharedPreferences.Editor ed = prefs.edit();
         ed.putBoolean("soundToggle", soundToggle);
         ed.putInt("difficulty", difficulty);
 
         ed.apply();
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,7 +74,6 @@ public class Options extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     protected Dialog onCreateDialog(int id) {
         Log.d(TAG,"diff button selected 1");

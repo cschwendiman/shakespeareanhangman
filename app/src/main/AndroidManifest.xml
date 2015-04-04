@@ -25,7 +25,7 @@
             android:label="@string/title_activity_game" >
         </activity>
         <activity
-            android:name=".Options"
+            android:name=".OptionsActivity"
             android:label="@string/title_activity_options" >
         </activity>
     </application>
