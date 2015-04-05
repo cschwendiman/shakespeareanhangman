@@ -1,6 +1,9 @@
 package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +20,29 @@ public class ResultsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+        boolean soundOn = prefs.getBoolean("soundToggle",false);
+        SoundPool sounds = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+        sounds.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int soundID, int status) {
+                soundPool.play(soundID, 1, 1, 1, 0, 1);
+            }
+        });
+
         Bundle extras = getIntent().getExtras();
         resultView = (TextView) findViewById(R.id.result);
         if (extras.getBoolean("status")) {
-        resultView.setText(R.string.result_win);
+            resultView.setText(R.string.result_win);
+            if (soundOn) {
+                sounds.load(this, R.raw.cheering, 1);
+            }
         }
         else {
             resultView.setText(R.string.result_loss);
+            if (soundOn) {
+                //sounds.load(this, R.raw.loss, 1);
+            }
         }
 
         phraseView = (TextView) findViewById(R.id.phrase);
@@ -31,6 +50,8 @@ public class ResultsActivity extends Activity {
 
         playView = (TextView) findViewById(R.id.play);
         playView.setText(extras.getString("play"));
+
+
     }
 
 
