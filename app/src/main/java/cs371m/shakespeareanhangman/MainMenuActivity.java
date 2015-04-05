@@ -2,6 +2,9 @@ package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +19,20 @@ public class MainMenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+        boolean soundOn = prefs.getBoolean("soundToggle",false);
+        if (soundOn) {
+            SoundPool sounds = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+            sounds.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
+            {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int soundID, int status) {
+                    soundPool.play(soundID, 1, 1, 1, 0, 1);
+                }
+            });
+            sounds.load(this, R.raw.welcome, 1);
+        }
     }
 
 
