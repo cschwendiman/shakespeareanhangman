@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 public class MainMenuActivity extends Activity {
@@ -33,6 +34,11 @@ public class MainMenuActivity extends Activity {
             });
             sounds.load(this, R.raw.welcome, 1);
         }
+
+        Button twoPlayerGameButton = (Button) findViewById(R.id.two_player_game_button);
+        twoPlayerGameButton.setEnabled(false);
+        Button playerProfilesButton = (Button) findViewById(R.id.player_profiles_button);
+        playerProfilesButton.setEnabled(false);
     }
 
 

@@ -12,37 +12,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_game"
-            android:id="@+id/new_game_button" android:layout_centerHorizontal="true"
+            android:id="@+id/new_game_button"
+            android:layout_centerHorizontal="true"
             android:layout_above="@+id/two_player_game_button"
             android:layout_marginBottom="10dp"
-            android:clickable="true"
             android:onClick="buttonClick"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/two_player_game"
-            android:id="@+id/two_player_game_button" android:layout_centerHorizontal="true"
-            android:layout_above="@+id/player_profiles_button" android:layout_marginBottom="10dp"
+            android:id="@+id/two_player_game_button"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/player_profiles_button"
+            android:layout_marginBottom="10dp"
             android:onClick="buttonClick"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/player_profiles"
             android:id="@+id/player_profiles_button"
-            android:layout_centerHorizontal="true" android:layout_above="@+id/options_button"
-            android:layout_marginBottom="10dp" android:onClick="buttonClick"/>
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/options_button"
+            android:layout_marginBottom="10dp"
+            android:onClick="buttonClick"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/options"
-            android:id="@+id/options_button" android:layout_centerHorizontal="true"
-            android:layout_above="@+id/about_button" android:layout_marginBottom="10dp" android:onClick="buttonClick"/>
+            android:id="@+id/options_button"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/about_button"
+            android:layout_marginBottom="10dp"
+            android:onClick="buttonClick"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/about"
-            android:id="@+id/about_button" android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true" android:layout_marginBottom="10dp" android:onClick="buttonClick"/>
+            android:id="@+id/about_button"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:onClick="buttonClick"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
