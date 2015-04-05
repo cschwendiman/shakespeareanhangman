@@ -26,6 +26,8 @@ public class GameActivity extends Activity {
     private BoardView board;
     private TextView phraseView;
 
+    private float scale;
+
     private SharedPreferences prefs;
     private boolean soundOn;
     private int difficultyLevel;
@@ -43,6 +45,7 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        scale = getResources().getDisplayMetrics().density;
         createKeyboard();
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
@@ -170,7 +173,8 @@ public class GameActivity extends Activity {
         LinearLayout bottomLayout = (LinearLayout) findViewById(R.id.bottom_layout);
         String[] keyboard = getResources().getStringArray(R.array.keyboard);
         LayoutParams rowParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        LayoutParams keyParams = new LayoutParams(42, 42);
+        int pixels = (int) (28.0f * scale + 0.5f);
+        LayoutParams keyParams = new LayoutParams(pixels, pixels);
         for (String row : keyboard) {
             LinearLayout rowLayout = new LinearLayout(this);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
