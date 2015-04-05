@@ -17,7 +17,7 @@
     <!-- About -->
     <string name="title_activity_about">AboutActivity</string>
     <string name="about_info">Shakespearean Hangman tests your knowledge of Shakespeare\'s poems and plays, from the most famous to the most obscure.
-                              Play alone or compete in a six-game tournament with a friend.\nCreators: Matt Hendrickson, Cassie Schwendiman, and Katherine Thayer</string>
+                              Play alone or compete in a six-game tournament with a friend.\n\nCreators: Matt Hendrickson, Cassie Schwendiman, and Katherine Thayer</string>
     <string name="image_attribution">"Shakespeare Cobbe portrait detail" by Unknown; photo by Lefteris
         Pitarakis/Associated Press -
         http://thelede.blogs.nytimes.com/2009/03/09/portrait-of-shakespeare-unveiled-399-years-late/?hp. Licensed under
