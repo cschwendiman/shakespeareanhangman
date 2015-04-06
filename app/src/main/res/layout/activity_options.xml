@@ -6,18 +6,60 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="cs371m.shakespeareanhangman.OptionsActivity">
 
-    <Switch
+
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sound: "
-        android:id="@+id/toggle_sound_button"
+        android:id="@+id/profilePic"
+        android:src="@drawable/defaultprofileimage"
+        android:contentDescription="profile pic"
+        android:layout_marginTop="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Profile"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:onClick="buttonClick"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/cateImageView"
-         />
+        android:id="@+id/changeProfile"
+        android:layout_below="@+id/profilePic"
+        android:layout_centerHorizontal="true" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@+id/diff_button">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Sound?"
+            android:id="@+id/SoundText"
+        />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sound: "
+            android:id="@+id/toggle_sound_button"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:onClick="buttonClick"
+        />
+
+
+
+    </LinearLayout>
+
 
     <Button
         android:layout_width="wrap_content"
@@ -25,21 +67,11 @@
         android:text="Difficulty Level"
         android:id="@+id/diff_button"
         android:clickable="true"
-        android:layout_below="@+id/toggle_sound_button"
+        android:onClick="buttonClick"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="buttonClick"/>
+        android:layout_marginBottom="45dp" />
 
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cateImageView" android:layout_alignParentTop="false"
-        android:src="@drawable/cate"
-        android:layout_alignParentRight="false" android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="cate pic"
-
-        />
 
 
 
