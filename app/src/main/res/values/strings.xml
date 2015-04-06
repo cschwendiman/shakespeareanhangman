@@ -24,6 +24,7 @@
 
     <!-- Game -->
     <string name="title_activity_game">GameActivity</string>
+    <string name="hangman_image_description">Hangman Image</string>
     <string-array name="keyboard">
         <item>QWERTYUIOP</item>
         <item>ASDFGHJKL</item>
