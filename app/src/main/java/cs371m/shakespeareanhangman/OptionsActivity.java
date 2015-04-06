@@ -38,6 +38,15 @@ public class OptionsActivity extends Activity {
         b.setEnabled(false);
 
         difficulty = prefs.getInt("difficulty",0);
+        Button db = (Button) findViewById(R.id.diff_button);
+        if(difficulty == 0)
+            db.setText("Difficulty: Easy");
+        else if(difficulty == 1)
+            db.setText("Difficulty: Medium");
+        else if(difficulty == 2)
+            db.setText("Difficulty: Hard");
+        else
+            db.setText("Error");
         Log.d(TAG, "Here in onCreate the difficulty is " + difficulty + "and the sound is " + soundToggle);
 
     }
@@ -84,6 +93,15 @@ public class OptionsActivity extends Activity {
                         //mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.values()[item]);
                         difficulty = item;
                         Log.d(TAG, "Difficulty level: " + difficulty);
+                        Button b = (Button) findViewById(R.id.diff_button);
+                        if(difficulty == 0)
+                            b.setText("Difficulty: Easy");
+                        else if(difficulty == 1)
+                            b.setText("Difficulty: Medium");
+                        else if(difficulty == 2)
+                            b.setText("Difficulty: Hard");
+                        else
+                            b.setText("Error");
 
                         // Display the selected difficulty level
                         Toast.makeText(getApplicationContext(), levels[item],
