@@ -9,8 +9,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class OptionsActivity extends Activity {
     private boolean soundToggle;
@@ -28,10 +30,12 @@ public class OptionsActivity extends Activity {
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
         soundToggle = prefs.getBoolean("soundToggle",false);
-        Switch sw = (Switch) findViewById(R.id.toggle_sound_button);
+        ToggleButton sw = (ToggleButton) findViewById(R.id.toggle_sound_button);
         if(soundToggle)//then set the switch to show on
             sw.toggle();
 
+        Button b = (Button) findViewById(R.id.changeProfile);
+        b.setEnabled(false);
 
         difficulty = prefs.getInt("difficulty",0);
         Log.d(TAG, "Here in onCreate the difficulty is " + difficulty + "and the sound is " + soundToggle);
