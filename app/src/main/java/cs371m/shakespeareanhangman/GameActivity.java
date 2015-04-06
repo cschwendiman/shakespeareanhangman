@@ -187,6 +187,34 @@ public class GameActivity extends Activity {
                 sounds.play(incorrectSoundID, 1, 1, 1, 0, 1);
             }
         }
+
+        /* If the guess was wrong, update the picture of the hangman to give him another limb. */
+        if(!guessCorrect) {
+            ImageView hangmanPic = (ImageView) findViewById(R.id.hangmanImageView);
+            switch(game.getWrongGuesses()) {
+                case 0:
+                    hangmanPic.setImageResource(R.drawable.hangman0);
+                    break;
+                case 1:
+                    hangmanPic.setImageResource(R.drawable.hangman1);
+                    break;
+                case 2:
+                    hangmanPic.setImageResource(R.drawable.hangman2);
+                    break;
+                case 3:
+                    hangmanPic.setImageResource(R.drawable.hangman3);
+                    break;
+                case 4:
+                    hangmanPic.setImageResource(R.drawable.hangman4);
+                    break;
+                case 5:
+                    hangmanPic.setImageResource(R.drawable.hangman5);
+                    break;
+                case 6:
+                    hangmanPic.setImageResource(R.drawable.hangman6);
+                    break;
+            }
+        }
         phraseView.setText(game.getCurrentPhrase());
         board.invalidate();
 
