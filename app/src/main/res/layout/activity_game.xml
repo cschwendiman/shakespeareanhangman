@@ -15,24 +15,34 @@
             android:layout_height="fill_parent"
             android:layout_marginTop="5dp"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hangmanImageView"
+        android:src="@drawable/hangman0"
+        android:contentDescription="@string/hangman_image_description"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
     <LinearLayout
-            android:orientation="vertical"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottom_layout">
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/bottom_layout">
-        <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textSize="25sp"
-                android:fontFamily="serif"
-                android:paddingBottom="10dp"
-                android:text=""
-                android:id="@+id/phrase"/>
+            android:textSize="25sp"
+            android:fontFamily="serif"
+            android:paddingBottom="10dp"
+            android:text=""
+            android:id="@+id/phrase"/>
     </LinearLayout>
 </RelativeLayout>

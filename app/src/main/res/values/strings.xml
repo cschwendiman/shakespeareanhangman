@@ -19,14 +19,12 @@
                               Play alone or compete in a six-game tournament with a friend.</string>
     <string name="about_creators">Creators: Matt Hendrickson, Cassie Schwendiman, and Katherine Thayer</string>
     <string name="music_attribution">Title Music by Setuniman at www.freesound.org/people/setuniman/</string>
-    <string name="image_attribution">\"Shakespeare Cobbe portrait detail\" by Unknown; photo by Lefteris
-        Pitarakis/Associated Press -
-        http://thelede.blogs.nytimes.com/2009/03/09/portrait-of-shakespeare-unveiled-399-years-late/?hp. Licensed under
-        Public Domain via Wikimedia Commons -
-        http://commons.wikimedia.org/wiki/File:Shakespeare_Cobbe_portrait_detail.jpg#/media/File:Shakespeare_Cobbe_portrait_detail.jpg</string>
+    <string name="image_attribution">Photo citation: "Shakespeare Cobbe portrait detail" by Unknown, photo by Lefteris
+        Pitarakis/Associated Press, via Wikimedia Commons</string>
 
     <!-- Game -->
     <string name="title_activity_game">GameActivity</string>
+    <string name="hangman_image_description">Hangman Image</string>
     <string-array name="keyboard">
         <item>QWERTYUIOP</item>
         <item>ASDFGHJKL</item>
