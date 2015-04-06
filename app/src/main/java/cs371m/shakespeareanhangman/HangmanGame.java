@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class HangmanGame {
 
     private static final String TAG = "HangmanGame";
-    private static final char HIDDEN_LETTER = '_';
+    private static final char HIDDEN_LETTER = '~';
     private static final int MAX_WRONG_GUESSES = 6;
 
     public enum Status {PLAYER_WIN, PLAYER_LOSS, ONGOING};
