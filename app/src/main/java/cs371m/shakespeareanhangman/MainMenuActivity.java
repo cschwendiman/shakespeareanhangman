@@ -13,6 +13,8 @@ import android.widget.Button;
 
 public class MainMenuActivity extends Activity {
     private static final String TAG = "Main Menu Activity";
+    private MediaPlayer mediaPlayer;
+    private boolean soundOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +22,9 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
 
         SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
-        boolean soundOn = prefs.getBoolean("soundToggle",false);
+        soundOn = prefs.getBoolean("soundToggle",false);
         if (soundOn) {
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.intro);
+            mediaPlayer = MediaPlayer.create(this, R.raw.intro);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setLooping(false);
             mediaPlayer.start();
@@ -37,6 +39,9 @@ public class MainMenuActivity extends Activity {
     public void buttonClick(View view) {
         Log.d(TAG, " Button Clicked");
         Intent intent;
+        if (soundOn) {
+            mediaPlayer.stop();
+        }
         switch (view.getId()) {
             case R.id.new_game_button:
                 Log.d(TAG, "New Game Button");

@@ -45,13 +45,15 @@ public class OptionsActivity extends Activity {
     protected void onStop()
     {
         Log.d(TAG, "leaving options menu");
-
         super.onStop();
-
         SharedPreferences.Editor ed = prefs.edit();
+
+        if (prefs.getInt("difficulty", 0) != difficulty) {
+            // Reset phrase queue on difficulty change
+            ed.putString("phraseQueue", "");
+        }
         ed.putBoolean("soundToggle", soundToggle);
         ed.putInt("difficulty", difficulty);
-
         ed.apply();
     }
 
@@ -97,7 +99,6 @@ public class OptionsActivity extends Activity {
 
     public void buttonClick(View view) {
         Log.d(TAG, " Button Clicked");
-        Intent intent;
         switch (view.getId()) {
             case R.id.toggle_sound_button:
                 //change the volume set in the preferences

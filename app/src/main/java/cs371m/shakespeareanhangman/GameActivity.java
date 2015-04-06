@@ -16,8 +16,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Random;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameActivity extends Activity {
     private static final String TAG = "Game Activity";
@@ -30,7 +31,6 @@ public class GameActivity extends Activity {
 
     private SharedPreferences prefs;
     private boolean soundOn;
-    private int difficultyLevel;
 
     // Control the sounds
     private SoundPool sounds;
@@ -50,10 +50,9 @@ public class GameActivity extends Activity {
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         soundOn = prefs.getBoolean("soundToggle",false);
-        difficultyLevel = prefs.getInt("difficulty",0);
 
         // Choose the secret phrase and store as a Phrase object for later
-        this.secretPhrase = getSecretPhrase(difficultyLevel);
+        this.secretPhrase = getSecretPhrase();
 
         // Kickoff the game logic
         game = new HangmanGame(secretPhrase.getQuote());
@@ -88,43 +87,65 @@ public class GameActivity extends Activity {
      * Input: difficulty level (determines which file to use to get a phrase)
      * Output: Phrase object (stores the quote and the name of the play it's from)
      */
-    private Phrase getSecretPhrase(int difficultyLevel) {
+    private Phrase getSecretPhrase() {
+        // TODO: Make this method less of a clusterfuck
         Resources r = getResources();
         Phrase chosenPhrase = new Phrase("ERROR", "ERROR");
-
+        String newPhraseQueue = "";
+        String phraseQueue = prefs.getString("phraseQueue","");
+        int difficultyLevel = prefs.getInt("difficulty",0);
         try {
             InputStream quotes = null;
 
             // Get the appropriate file based on the difficulty level
-            if(difficultyLevel == 0) {
+            if (difficultyLevel == 0) {
                 quotes = r.openRawResource(R.raw.easyquotes);
-            } else if(difficultyLevel == 1) {
+            } else if (difficultyLevel == 1) {
                 quotes = r.openRawResource(R.raw.mediumquotes);
-            } else if(difficultyLevel == 2) {
+            } else if (difficultyLevel == 2) {
                 quotes = r.openRawResource(R.raw.hardquotes);
             }
-
             InputStreamReader inputStreamReader = new InputStreamReader(quotes);
             BufferedReader br = new BufferedReader(inputStreamReader);
 
-            /* Note on the file format:
-             * First line has a single int with the total number of quotes in the file
-             * Then each quote is represented in the following three-line format:
-             * First line is the quote
-             * Second line is the name of the play or sonnet it was from
-             */
-            // TODO: add better logic to avoid repeating phrases. Perhaps store record of used phrases in SharedPreferences?
-
-            // Get the total number of quotes
-            int numQuotes = Integer.parseInt(br.readLine());
-
-            // Choose a random quote number
-            Random rand = new Random();
-            int targetQuoteNum = rand.nextInt() % numQuotes;
+            int chosenPhraseIndex = 0;
+            if (phraseQueue.isEmpty()) {
+                // If phraseQueue is empty, generate new queue and get phraseIndex
+                // Get the total number of quotes
+                int numQuotes = Integer.parseInt(br.readLine());
+                // Build a list with the indices of all the quotes
+                List<Integer> quoteIndices = new ArrayList<Integer>();
+                for (int i = 0; i < numQuotes; i++) {
+                    quoteIndices.add(i);
+                }
+                // Shuffle the list to randomize the quotes
+                Collections.shuffle(quoteIndices);
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < quoteIndices.size(); i++) {
+                    int quoteIndex = quoteIndices.get(i);
+                    if (i == 0){
+                        // Save the first index for the current game's phrase
+                        chosenPhraseIndex = quoteIndex;
+                    }
+                    else {
+                        stringBuilder.append(quoteIndex);
+                        stringBuilder.append(',');
+                    }
+                }
+                newPhraseQueue = stringBuilder.toString();
+            } else {
+                // Otherwise, pop off next phrase index
+                String[] pieces = phraseQueue.split(",", 2);
+                chosenPhraseIndex = Integer.parseInt(pieces[0]);
+                newPhraseQueue = pieces[1];
+                // Skip the first line with the number of quotes
+                br.readLine();
+            }
 
             // Go to the correct quote
+            Log.d(TAG, "Phrase Index: " + chosenPhraseIndex);
             int quoteNum = 0;
-            while (quoteNum < targetQuoteNum) {
+            while (quoteNum < chosenPhraseIndex) {
                 // Skip the next quote
                 br.readLine();
                 br.readLine();
@@ -135,13 +156,21 @@ public class GameActivity extends Activity {
             String quote = br.readLine();
             String play = br.readLine();
             chosenPhrase = new Phrase(quote, play);
-
+            Log.d(TAG, "Chosen Phrase: " + chosenPhrase.getQuote());
             br.close();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // Auto-generated catch block
             e.printStackTrace();
         }
+
+        // Save new phrase queue to prefs
+        Log.d(TAG, "New Phrase Queue: " + newPhraseQueue);
+        SharedPreferences.Editor ed = prefs.edit();
+        ed.putString("phraseQueue", newPhraseQueue);
+        ed.apply();
+
+        // Return our phrase
         return chosenPhrase;
     }
 
