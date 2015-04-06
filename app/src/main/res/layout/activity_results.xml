@@ -8,7 +8,7 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="cs371m.shakespeareanhangman.ResultsActivity">
 
-    <TextView
+    <cs371m.shakespeareanhangman.ScriptView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -32,7 +32,6 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textSize="25sp"
             android:fontFamily="serif"

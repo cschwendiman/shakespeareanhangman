@@ -1,8 +1,11 @@
 <resources>
+    <color name="ink_color">#ff352c29</color>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Light">
+    <style name="AppTheme" parent="android:Theme.NoTitleBar.Fullscreen">
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/creampaper</item>
+        <item name="android:textColor">@color/ink_color</item>
     </style>
 
 </resources>
