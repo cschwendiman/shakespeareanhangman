@@ -3,8 +3,8 @@
     package="cs371m.shakespeareanhangman" >
 
     <application
-        android:icon="@drawable/icon"
         android:allowBackup="true"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -31,6 +31,14 @@
         <activity
             android:name=".ResultsActivity"
             android:label="@string/title_activity_results" >
+        </activity>
+        <activity
+            android:name=".TwoPlayerGameActivity"
+            android:label="@string/title_activity_two_player_game" >
+        </activity>
+        <activity
+            android:name=".TwoPlayerResultsActivity"
+            android:label="@string/title_activity_two_player_results" >
         </activity>
     </application>
 

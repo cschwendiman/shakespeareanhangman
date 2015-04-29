@@ -1,13 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:id="@+id/activity_game"
-                tools:context="cs371m.shakespeareanhangman.GameActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:id="@+id/activity_game"
+    tools:context="cs371m.shakespeareanhangman.GameActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"
+        android:id="@+id/player_name" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -15,9 +22,8 @@
         android:id="@+id/hangmanImageView"
         android:src="@drawable/hangman0"
         android:contentDescription="@string/hangman_image_description"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/player_name"
         android:layout_centerHorizontal="true" />
-
 
     <LinearLayout
         android:orientation="vertical"

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GameActivity extends Activity {
+public class TwoPlayerGameActivity extends Activity {
     private static final String TAG = "Game Activity";
 
     private HangmanGame game;
@@ -40,10 +40,13 @@ public class GameActivity extends Activity {
     // Perhaps we will want to put it in SharedPreferences so we can display the correct answer on the game results screen?
     private Phrase secretPhrase;
 
+    // For two-player game, must track player name
+    private String playerName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_two_player_game);
         scale = getResources().getDisplayMetrics().density;
         createKeyboard();
 
@@ -52,6 +55,11 @@ public class GameActivity extends Activity {
 
         // Choose the secret phrase and store as a Phrase object for later
         this.secretPhrase = getSecretPhrase();
+
+        // Get player name to display
+        playerName = getPlayerName();
+        TextView nameView = (TextView) findViewById(R.id.player_name);
+        nameView.setText(playerName + "'s turn");
 
         // Kickoff the game logic
         game = new HangmanGame(secretPhrase.getQuote());
@@ -77,6 +85,10 @@ public class GameActivity extends Activity {
             sounds.release();
             sounds = null;
         }
+    }
+
+    private String getPlayerName() {
+        return "Player 1";
     }
 
     /*
@@ -256,7 +268,7 @@ public class GameActivity extends Activity {
     private void endGame(boolean status) {
         Log.d(TAG, "Game Ended");
         Log.d(TAG, status ? "WIN" : "LOSE");
-        Intent intent = new Intent(this, ResultsActivity.class);
+        Intent intent = new Intent(this, TwoPlayerResultsActivity.class);
         intent.putExtra("status", status);
         intent.putExtra("phrase", secretPhrase.getQuote());
         intent.putExtra("play", secretPhrase.getPlay());

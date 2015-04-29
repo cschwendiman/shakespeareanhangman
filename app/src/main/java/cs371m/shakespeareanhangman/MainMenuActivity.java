@@ -31,7 +31,7 @@ public class MainMenuActivity extends Activity {
         }
 
         Button twoPlayerGameButton = (Button) findViewById(R.id.two_player_game_button);
-        twoPlayerGameButton.setEnabled(false);
+        //twoPlayerGameButton.setEnabled(false);
         Button playerProfilesButton = (Button) findViewById(R.id.player_profiles_button);
         playerProfilesButton.setEnabled(false);
     }
@@ -49,8 +49,9 @@ public class MainMenuActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.two_player_game_button:
-                //intent = new Intent(this, GameActivity.class);
-                //startActivity(intent);
+                Log.d(TAG, "Two Player Game Button pressed");
+                intent = new Intent(this, TwoPlayerGameActivity.class);
+                startActivity(intent);
                 break;
             case R.id.player_profiles_button:
                 //intent = new Intent(this, GameActivity.class);

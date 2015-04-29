@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Shakespearean Hangman</string>
 
     <!-- Main Menu Strings -->
@@ -25,6 +26,7 @@
     <!-- Game -->
     <string name="title_activity_game">GameActivity</string>
     <string name="hangman_image_description">Hangman Image</string>
+
     <string-array name="keyboard">
         <item>QWERTYUIOP</item>
         <item>ASDFGHJKL</item>
@@ -37,4 +39,12 @@
     <string name="result_loss">You Lost!</string>
     <string name="answer_is">The answer is:</string>
     <string name="main_menu">Main Menu</string>
+    <string name="continue_next">Continue</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Two Player game -->
+    <string name="title_activity_two_player_game">TwoPlayerGameActivity</string>
+    <string name="title_activity_two_player_results">TwoPlayerResultsActivity</string>
+
 </resources>
