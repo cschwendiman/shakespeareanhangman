@@ -45,6 +45,24 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text=""
             android:id="@+id/play"
-            android:layout_below="@+id/phrase"
+            android:layout_below="@id/phrase"
             android:layout_alignParentRight="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_game"
+        android:id="@+id/new_game_result_button"
+        android:layout_below="@+id/play"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="buttonPress"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_game_result_button"
+        android:text="@string/main_menu"
+        android:id="@+id/main_menu_result_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="buttonPress"/>
+
 </RelativeLayout>

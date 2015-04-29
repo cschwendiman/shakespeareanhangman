@@ -36,4 +36,5 @@
     <string name="result_win">You Won!</string>
     <string name="result_loss">You Lost!</string>
     <string name="answer_is">The answer is:</string>
+    <string name="main_menu">Main Menu</string>
 </resources>
