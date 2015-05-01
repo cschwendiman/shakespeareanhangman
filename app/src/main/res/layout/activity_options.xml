@@ -26,7 +26,8 @@
         android:layout_marginTop="15dp"
         android:id="@+id/changeProfile"
         android:layout_below="@+id/profilePic"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="buttonClick"/>
 
 
     <LinearLayout
