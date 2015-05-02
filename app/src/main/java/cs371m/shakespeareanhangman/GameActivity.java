@@ -108,6 +108,7 @@ public class GameActivity extends Activity {
 
             int chosenPhraseIndex = 0;
             if (phraseQueue.isEmpty()) {
+                Log.d(TAG, "Phrase queue was empty");
                 // If phraseQueue is empty, generate new queue and get phraseIndex
                 // Get the total number of quotes
                 int numQuotes = Integer.parseInt(br.readLine());
@@ -116,8 +117,12 @@ public class GameActivity extends Activity {
                 for (int i = 0; i < numQuotes; i++) {
                     quoteIndices.add(i);
                 }
+                Log.d(TAG, "Phrase list will be " + quoteIndices.toString());
+
                 // Shuffle the list to randomize the quotes
                 Collections.shuffle(quoteIndices);
+
+                Log.d(TAG, "Phrase list after shuffling is " + quoteIndices.toString());
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < quoteIndices.size(); i++) {
                     int quoteIndex = quoteIndices.get(i);
@@ -132,6 +137,7 @@ public class GameActivity extends Activity {
                 }
                 newPhraseQueue = stringBuilder.toString();
             } else {
+                Log.d(TAG, "Phrase queue not empty, popping off index");
                 // Otherwise, pop off next phrase index
                 String[] pieces = phraseQueue.split(",", 2);
                 chosenPhraseIndex = Integer.parseInt(pieces[0]);
