@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -94,7 +96,7 @@ public class AddNewProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonClick(View view) {
+    public void buttonClick(View view) throws SQLException {
         Log.d(TAG, " Button Clicked");
         Intent intent;
         switch (view.getId()) {
@@ -107,7 +109,7 @@ public class AddNewProfileActivity extends Activity {
             case R.id.commit_add_new_profile_button:
                 Log.d(TAG, "adding new profile");
                 profiles.add(newProfile);
-                printProfiles();
+                saveProfile();
                 intent = new Intent(this, PlayerProfilesActivity.class);
                 startActivity(intent);
                 break;
@@ -116,7 +118,17 @@ public class AddNewProfileActivity extends Activity {
     }
 
 
-
+    private void saveProfile() throws SQLException {
+        Database database = new Database(getApplicationContext());//maybe not getApplicationContext?
+        if (getIntent().getExtras() == null) {
+            database.insertProfile (
+                    newProfile.getProfName(),
+                    newProfile.getHighScore(),
+                    newProfile.getWins(),
+                    newProfile.getLosses(),
+                    newProfile.getGamesPlayed());
+        }
+    }
 
 
 
