@@ -34,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, " Created profiles database.");
         db.execSQL(
                 "create table profiles " +
                         "(id integer primary key, name text, high_score integer, wins integer, losses integer, games_played integer, image blob)"
@@ -42,6 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(TAG, " Upgraded profiles database.");
         db.execSQL("DROP TABLE IF EXISTS profiles");
         onCreate(db);
     }
@@ -72,6 +74,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Profile getProfile(long id){
+        Log.d(TAG, " Get profile.");
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =  db.rawQuery( "select * from profiles where id="+id+"", null );
         cursor.moveToFirst();
@@ -91,10 +94,12 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(PROFILES_COLUMN_GAMES_PLAYED, profile.getGamesPlayed());
         contentValues.put(PROFILES_COLUMN_IMAGE, profile.getImage());
         db.update("profiles", contentValues, "id = ? ", new String[] { Long.toString(profile.getId()) } );
+        Log.d(TAG, " Profile updated for '" + profile.getName() + "'");
         return true;
     }
 
     public List<Profile> getAllProfiles() {
+        Log.d(TAG, " Get all profiles.");
         SQLiteDatabase db = this.getWritableDatabase();
         List<Profile> profiles = new ArrayList<Profile>();
 
