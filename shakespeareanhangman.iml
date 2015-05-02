@@ -7,8 +7,9 @@
       </configuration>
     </facet>
   </component>
-
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/build/classes/main" />
+    <output-test url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/build/classes/test" />
     <exclude-output />
     <content url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman">
       <excludeFolder url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/.gradle" />
