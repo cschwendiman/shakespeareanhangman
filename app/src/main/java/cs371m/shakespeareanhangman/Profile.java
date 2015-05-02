@@ -11,51 +11,61 @@ import android.content.SharedPreferences;
  */
 public class Profile {
 
-    private String profName;
+    private long id;
+    private String name;
     private int highScore;
     private int wins;
     private int losses;
     private int gamesPlayed;
+    private byte[] image;
 
     public Profile()
     {
-        profName = "New Profile";
+        name = "New Profile";
         highScore = 0;
         wins = 0;
         losses = 0;
         gamesPlayed = 0;
+        image = new byte[0];
     }
 
-    public Profile(String name, int highSc, int w, int l, int gPlayed)
+    public Profile(String name, int highScore, int wins, int losses, int gamesPlayed, byte[] image)
     {
-        profName = name;
-        highScore = highSc;
-        wins = w;
-        losses = l;
-        gamesPlayed = gPlayed;
+        this.name = name;
+        this.highScore = highScore;
+        this.wins = wins;
+        this.losses = losses;
+        this.gamesPlayed = gamesPlayed;
+        this.image = image;
     }
 
-    public void setProfName(String name){
-        profName = name;
+    public void setId(long id) {this.id = id;}
+
+    public void setName(String name){
+        this.name = name;
     }
 
-    public void setHighScore(int in){
-        highScore = in;
+    public void setHighScore(int highScore){
+        this.highScore = highScore;
     }
 
-    public void setWins(int in){
-        wins = in;
+    public void setWins(int wins){
+        this.wins = wins;
     }
 
-    public void setLosses(int in){
-        losses = in;
+    public void setLosses(int losses){
+        this.losses = losses;
     }
 
-    public void setGamesPlayed(int in){
-        gamesPlayed = in;
+    public void setGamesPlayed(int gamesPlayed){
+        this.gamesPlayed = gamesPlayed;
     }
 
-    public String getProfName() { return profName; }
+    public void setImage(byte[] image) { this.image = image; }
+
+    public long getId() { return id; }
+
+    public String getName() { return name; }
 
     public int getHighScore() { return highScore; }
 
@@ -65,4 +75,5 @@ public class Profile {
 
     public int getGamesPlayed() { return gamesPlayed; }
 
+    public byte[] getImage() { return image; }
 }
