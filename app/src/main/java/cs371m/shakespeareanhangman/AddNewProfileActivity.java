@@ -2,16 +2,47 @@ package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 
 public class AddNewProfileActivity extends Activity {
 
+
+
+String TAG = "Add New Profile Activity";
+EditText editText;
+Profile newProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        newProfile = new Profile();
+
         setContentView(R.layout.activity_add_new_profile);
+        editText = (EditText) findViewById(R.id.profile_title);
+        Log.d(TAG, "Hey 1");
+        editText.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    //set profile title
+                    Log.d(TAG, v.getText().toString());
+                    newProfile.setProfName(v.getText().toString());
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+        Log.d(TAG, "Hey 1");
     }
 
 
@@ -36,4 +67,9 @@ public class AddNewProfileActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
 }

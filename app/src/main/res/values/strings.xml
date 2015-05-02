@@ -11,6 +11,9 @@
     <string name="options">Options</string>
     <string name="about">About</string>
 
+    <!-- Add New Profile -->
+    <string name = "profile_title_enter">Enter</string>
+
     <!-- Options -->
     <string name="title_activity_options">Options</string>
 
