@@ -55,5 +55,14 @@ public class Profile {
         gamesPlayed = in;
     }
 
+    public String getProfName() { return profName; }
+
+    public int getHighScore() { return highScore; }
+
+    public int getWins() { return wins; }
+
+    public int getLosses() { return losses; }
+
+    public int getGamesPlayed() { return gamesPlayed; }
 
 }
