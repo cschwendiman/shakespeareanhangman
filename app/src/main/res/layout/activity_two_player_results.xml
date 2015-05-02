@@ -51,8 +51,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:id="@+id/standings1"
+        android:id="@+id/round_info"
         android:layout_below="@id/play"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/standings1"
+        android:layout_below="@id/round_info"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,7 +71,7 @@
         android:text="@string/continue_next"
         android:id="@+id/continue_button"
         android:layout_below="@+id/standings2"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:onClick="buttonPress"/>
 

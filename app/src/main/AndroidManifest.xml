@@ -40,6 +40,14 @@
             android:name=".TwoPlayerResultsActivity"
             android:label="@string/title_activity_two_player_results" >
         </activity>
+        <activity
+            android:name=".TwoPlayerSetupActivity"
+            android:label="@string/title_activity_two_player_setup" >
+        </activity>
+        <activity
+            android:name=".TournamentResultsActivity"
+            android:label="@string/title_activity_tournament_results" >
+        </activity>
     </application>
 
 </manifest>

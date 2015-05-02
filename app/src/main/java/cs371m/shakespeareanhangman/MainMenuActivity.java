@@ -50,7 +50,7 @@ public class MainMenuActivity extends Activity {
                 break;
             case R.id.two_player_game_button:
                 Log.d(TAG, "Two Player Game Button pressed");
-                intent = new Intent(this, TwoPlayerGameActivity.class);
+                intent = new Intent(this, TwoPlayerSetupActivity.class);
                 startActivity(intent);
                 break;
             case R.id.player_profiles_button:

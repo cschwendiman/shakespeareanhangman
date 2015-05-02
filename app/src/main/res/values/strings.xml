@@ -43,8 +43,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <!--Two Player game -->
+    <!-- Two Player game -->
     <string name="title_activity_two_player_game">TwoPlayerGameActivity</string>
     <string name="title_activity_two_player_results">TwoPlayerResultsActivity</string>
+    <string name="title_activity_two_player_setup">TwoPlayerSetupActivity</string>
+    <string name="start_game">Start Game</string>
+    <string name="title_activity_tournament_results">TournamentResultsActivity</string>
 
 </resources>
