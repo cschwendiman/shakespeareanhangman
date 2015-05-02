@@ -26,28 +26,15 @@ public class AddNewProfileActivity extends Activity {
     EditText editText;
     Profile newProfile;
     private SharedPreferences prefs;
-    ArrayList<Profile> profiles;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_new_profile);
 
         newProfile = new Profile();
 
-        if (null == profiles)
-            profiles = new ArrayList<Profile>();
-
-
-
-
-
-        if (profiles == null)
-            Log.d(TAG, "Profile array returned null in onCreate");
-
-
-        printProfiles();
-
-        setContentView(R.layout.activity_add_new_profile);
         editText = (EditText) findViewById(R.id.profile_title);
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
@@ -56,7 +43,7 @@ public class AddNewProfileActivity extends Activity {
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     //set profile title
                     Log.d(TAG, v.getText().toString());
-                    newProfile.setProfName(v.getText().toString());
+                    newProfile.setName(v.getText().toString());
                     handled = true;
                 }
                 return handled;
@@ -64,15 +51,6 @@ public class AddNewProfileActivity extends Activity {
         });
     }
 
-
-    public void printProfiles()
-    {
-        Log.d(TAG, "printing Profile names" + profiles.size());
-        for( int i = 0; i < profiles.size(); i++)
-        {
-            Log.d(TAG, profiles.get(i).getProfName());
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,29 +86,17 @@ public class AddNewProfileActivity extends Activity {
 
             case R.id.commit_add_new_profile_button:
                 Log.d(TAG, "adding new profile");
-                profiles.add(newProfile);
                 saveProfile();
                 intent = new Intent(this, PlayerProfilesActivity.class);
                 startActivity(intent);
                 break;
-
         }
     }
-
 
     private void saveProfile() throws SQLException {
-        Database database = new Database(getApplicationContext());//maybe not getApplicationContext?
-        if (getIntent().getExtras() == null) {
-            database.insertProfile (
-                    newProfile.getProfName(),
-                    newProfile.getHighScore(),
-                    newProfile.getWins(),
-                    newProfile.getLosses(),
-                    newProfile.getGamesPlayed());
-        }
+        DBHelper database = new DBHelper(this);
+        database.createProfile(newProfile.getName(), new byte[0]);
     }
-
-
 
 
 
