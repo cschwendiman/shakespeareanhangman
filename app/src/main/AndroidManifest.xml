@@ -40,6 +40,18 @@
             android:name=".TwoPlayerResultsActivity"
             android:label="@string/title_activity_two_player_results" >
         </activity>
+        <activity
+            android:name=".ChooseProfileActivity"
+            android:label="@string/title_activity_choose_profile" >
+        </activity>
+        <activity
+            android:name=".PlayerProfilesActivity"
+            android:label="@string/title_activity_player_profiles" >
+        </activity>
+        <activity
+            android:name=".AddNewProfileActivity"
+            android:label="@string/title_activity_add_new_profile" >
+        </activity>
     </application>
 
 </manifest>
