@@ -12,9 +12,9 @@ import android.view.View;
 
 public class PlayerProfilesActivity extends Activity {
 
-    private SharedPreferences prefs;
-    Profile[] profs;
+
     private String TAG = "Player Profiles Activity";
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
