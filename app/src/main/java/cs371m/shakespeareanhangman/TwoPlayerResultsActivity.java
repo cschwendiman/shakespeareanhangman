@@ -14,6 +14,11 @@ public class TwoPlayerResultsActivity extends Activity {
     private TextView resultView;
     private TextView phraseView;
     private TextView playView;
+    private TextView roundView;
+    private TextView score1View;
+    private TextView score2View;
+
+    private int round;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +54,39 @@ public class TwoPlayerResultsActivity extends Activity {
 
         playView = (TextView) findViewById(R.id.play);
         playView.setText(extras.getString("play"));
+
+        round = prefs.getInt("roundNumber", 1);
+        roundView = (TextView) findViewById(R.id.round_info);
+        roundView.setText("Round " + round + " of 6");
+
+        score1View = (TextView) findViewById(R.id.standings1);
+        score1View.setText(prefs.getString("playerName1", "Player 1") + "'s score: " + prefs.getInt("playerWins1", 0));
+
+        score2View = (TextView) findViewById(R.id.standings2);
+        score2View.setText(prefs.getString("playerName2", "Player 2") + "'s score: " + prefs.getInt("playerWins2", 0));
+
+        // Update round number
+        round++;
+        SharedPreferences.Editor ed = prefs.edit();
+        ed.putInt("roundNumber", round);
+        ed.apply();
     }
 
     public void buttonPress(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.continue_button:
-                intent = new Intent(this, TwoPlayerGameActivity.class);
+                // If the tournament isn't over yet, play another game
+                if(round <= 6) {
+                    intent = new Intent(this, TwoPlayerGameActivity.class);
+                }
+                // Otherwise show the final results
+                else {
+                    intent = new Intent(this, TournamentResultActivity.class);
+                }
                 startActivity(intent);
                 break;
-            /* In future we want to go to the final results activity if the tournament is over
-            case R.id.main_menu_result_button:
-                intent = new Intent(this, MainMenuActivity.class);
-                startActivity(intent);
-                break;*/
+
             default:
                 throw new RuntimeException("Unknown button ID");
         }
