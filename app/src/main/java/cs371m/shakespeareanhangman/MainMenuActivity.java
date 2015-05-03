@@ -16,6 +16,8 @@ public class MainMenuActivity extends Activity {
     private MediaPlayer mediaPlayer;
     private boolean soundOn;
 
+    private DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +31,6 @@ public class MainMenuActivity extends Activity {
             mediaPlayer.setLooping(false);
             mediaPlayer.start();
         }
-
-        Button twoPlayerGameButton = (Button) findViewById(R.id.two_player_game_button);
-        //twoPlayerGameButton.setEnabled(false);
-        Button playerProfilesButton = (Button) findViewById(R.id.player_profiles_button);
     }
 
     public void buttonClick(View view) {

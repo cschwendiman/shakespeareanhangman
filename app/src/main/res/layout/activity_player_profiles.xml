@@ -16,6 +16,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp" />
 
-
-
+    <fragment android:name="cs371m.shakespeareanhangman.PlayerProfilesListFragment"
+              android:id="@+id/player_profiles_list_fragment"
+              android:layout_weight="1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
 </RelativeLayout>
