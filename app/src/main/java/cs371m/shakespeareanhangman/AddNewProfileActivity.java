@@ -80,15 +80,13 @@ public class AddNewProfileActivity extends Activity {
         switch (view.getId()) {
             case R.id.cancel_add_new_profile_button:
                 Log.d(TAG, "cancelling adding new profile");
-                intent = new Intent(this, PlayerProfilesActivity.class);
-                startActivity(intent);
+                finish();
                 break;
 
             case R.id.commit_add_new_profile_button:
                 Log.d(TAG, "adding new profile");
                 saveProfile();
-                intent = new Intent(this, PlayerProfilesActivity.class);
-                startActivity(intent);
+                finish();
                 break;
         }
     }
