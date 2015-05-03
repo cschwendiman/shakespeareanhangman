@@ -82,15 +82,11 @@ public class TwoPlayerResultsActivity extends Activity {
                 }
                 // Otherwise show the final results
                 else {
-                    intent = new Intent(this, MainMenuActivity.class);
+                    intent = new Intent(this, TournamentResultActivity.class);
                 }
                 startActivity(intent);
                 break;
-            /* In future we want to go to the final results activity if the tournament is over
-            case R.id.main_menu_result_button:
-                intent = new Intent(this, MainMenuActivity.class);
-                startActivity(intent);
-                break;*/
+
             default:
                 throw new RuntimeException("Unknown button ID");
         }

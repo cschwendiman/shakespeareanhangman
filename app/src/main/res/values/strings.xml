@@ -49,5 +49,6 @@
     <string name="title_activity_two_player_setup">TwoPlayerSetupActivity</string>
     <string name="start_game">Start Game</string>
     <string name="title_activity_tournament_results">TournamentResultsActivity</string>
+    <string name="title_activity_tournament_result">TournamentResultActivity</string>
 
 </resources>

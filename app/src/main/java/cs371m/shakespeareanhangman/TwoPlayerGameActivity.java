@@ -278,6 +278,7 @@ public class TwoPlayerGameActivity extends Activity {
 
         SharedPreferences.Editor ed = prefs.edit();
 
+
         // Update number of wins for the player
         if(status) {
             if(isFirstPlayer) {

@@ -48,6 +48,10 @@
             android:name=".TournamentResultsActivity"
             android:label="@string/title_activity_tournament_results" >
         </activity>
+        <activity
+            android:name=".TournamentResultActivity"
+            android:label="@string/title_activity_tournament_result" >
+        </activity>
     </application>
 
 </manifest>
