@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TwoPlayerGameActivity extends Activity {
-    private static final String TAG = "Game Activity";
+    private static final String TAG = "Two Player Game Activity";
 
     private HangmanGame game;
     private TextView phraseView;
@@ -42,6 +42,7 @@ public class TwoPlayerGameActivity extends Activity {
 
     // For two-player game, must track player name
     private String playerName;
+    private boolean isFirstPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,18 @@ public class TwoPlayerGameActivity extends Activity {
         // Choose the secret phrase and store as a Phrase object for later
         this.secretPhrase = getSecretPhrase();
 
-        // Get player name to display
-        playerName = getPlayerName();
+        // Get player turn
+        int roundNum = prefs.getInt("roundNumber", 0);
+
+        // Get player name and display it
+        if(roundNum % 2 == 1) {
+            playerName = prefs.getString("playerName1", "Player 1");
+            isFirstPlayer = true;
+        } else {
+            playerName = prefs.getString("playerName2", "Player 2");
+            isFirstPlayer = false;
+        }
+
         TextView nameView = (TextView) findViewById(R.id.player_name);
         nameView.setText(playerName + "'s turn");
 
@@ -85,10 +96,6 @@ public class TwoPlayerGameActivity extends Activity {
             sounds.release();
             sounds = null;
         }
-    }
-
-    private String getPlayerName() {
-        return "Player 1";
     }
 
     /*
@@ -268,6 +275,25 @@ public class TwoPlayerGameActivity extends Activity {
     private void endGame(boolean status) {
         Log.d(TAG, "Game Ended");
         Log.d(TAG, status ? "WIN" : "LOSE");
+
+        SharedPreferences.Editor ed = prefs.edit();
+
+
+        // Update number of wins for the player
+        if(status) {
+            if(isFirstPlayer) {
+                int wins = prefs.getInt("playerWins1", 0);
+                wins++;
+                ed.putInt("playerWins1", wins);
+            } else {
+                int wins = prefs.getInt("playerWins2", 0);
+                wins++;
+                ed.putInt("playerWins2", wins);
+            }
+        }
+        ed.apply();
+
+        // Send quote and play to results screen
         Intent intent = new Intent(this, TwoPlayerResultsActivity.class);
         intent.putExtra("status", status);
         intent.putExtra("phrase", secretPhrase.getQuote());

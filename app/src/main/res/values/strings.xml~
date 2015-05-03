@@ -46,14 +46,15 @@
     <!-- Two Player game -->
     <string name="title_activity_two_player_game">TwoPlayerGameActivity</string>
     <string name="title_activity_two_player_results">TwoPlayerResultsActivity</string>
-
+<<<<<<< HEAD
     <string name="title_activity_two_player_setup">TwoPlayerSetupActivity</string>
     <string name="start_game">Start Game</string>
     <string name="title_activity_tournament_results">TournamentResultsActivity</string>
     <string name="title_activity_tournament_result">TournamentResultActivity</string>
-
+=======
     <string name="title_activity_choose_profile">ChooseProfile</string>
     <string name="title_activity_player_profiles">PlayerProfiles</string>
     <string name="title_activity_add_new_profile">AddNewProfile</string>
+>>>>>>> master
 
 </resources>
