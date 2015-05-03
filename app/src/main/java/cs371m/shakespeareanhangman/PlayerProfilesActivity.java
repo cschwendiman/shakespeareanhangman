@@ -25,15 +25,6 @@ public class PlayerProfilesActivity extends Activity {
         setContentView(R.layout.activity_player_profiles);
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
-
-/*
-        DBHelper dbHelper = new DBHelper(this);
-        List<Profile> profiles = dbHelper.getAllProfiles();
-        PlayerProfileAdapter adapter = new PlayerProfileAdapter(this,
-                (Profile[]) profiles.toArray());
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-*/
     }
 
 
