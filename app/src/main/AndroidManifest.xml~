@@ -41,6 +41,7 @@
             android:label="@string/title_activity_two_player_results" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".TwoPlayerSetupActivity"
             android:label="@string/title_activity_two_player_setup" >
         </activity>
@@ -51,8 +52,7 @@
         <activity
             android:name=".TournamentResultActivity"
             android:label="@string/title_activity_tournament_result" >
-	</activity>
-	<activity
+=======
             android:name=".ChooseProfileActivity"
             android:label="@string/title_activity_choose_profile" >
         </activity>
@@ -63,6 +63,7 @@
         <activity
             android:name=".AddNewProfileActivity"
             android:label="@string/title_activity_add_new_profile" >
+>>>>>>> master
         </activity>
     </application>
 

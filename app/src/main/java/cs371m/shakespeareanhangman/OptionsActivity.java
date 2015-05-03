@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -35,7 +34,7 @@ public class OptionsActivity extends Activity {
             sw.toggle();
 
         Button b = (Button) findViewById(R.id.changeProfile);
-        b.setEnabled(false);
+        b.setEnabled(true);
 
         difficulty = prefs.getInt("difficulty",0);
         Button db = (Button) findViewById(R.id.diff_button);
@@ -117,7 +116,13 @@ public class OptionsActivity extends Activity {
 
     public void buttonClick(View view) {
         Log.d(TAG, " Button Clicked");
+        Intent intent;
         switch (view.getId()) {
+            case R.id.changeProfile:
+                Log.d(TAG, "New Game Button");
+                intent = new Intent(this, ChooseProfileActivity.class);
+                startActivity(intent);
+                break;
             case R.id.toggle_sound_button:
                 //change the volume set in the preferences
                 if(soundToggle) {

@@ -33,7 +33,6 @@ public class MainMenuActivity extends Activity {
         Button twoPlayerGameButton = (Button) findViewById(R.id.two_player_game_button);
         //twoPlayerGameButton.setEnabled(false);
         Button playerProfilesButton = (Button) findViewById(R.id.player_profiles_button);
-        playerProfilesButton.setEnabled(false);
     }
 
     public void buttonClick(View view) {
@@ -54,8 +53,8 @@ public class MainMenuActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.player_profiles_button:
-                //intent = new Intent(this, GameActivity.class);
-                //startActivity(intent);
+                intent = new Intent(this, PlayerProfilesActivity.class);
+                startActivity(intent);
                 break;
             case R.id.options_button:
                 Log.d(TAG, "Options Button pressed");
