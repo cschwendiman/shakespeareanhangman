@@ -22,7 +22,7 @@ public class OptionsActivity extends Activity {
     private String TAG = "Options Activity";
     int selectedProfileIdx;
     Profile selectedProfile;
-    List arr;
+    List<Profile> arr;
 
 
     @Override
@@ -35,8 +35,10 @@ public class OptionsActivity extends Activity {
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
         DBHelper database = new DBHelper(this);
+        database.createProfile("Default", new byte[0]);
         arr = database.getAllProfiles();
         selectedProfileIdx = prefs.getInt("selectedProfileIdx", 1);
+        //error check for selectedProfileIdx
         selectedProfile = database.getProfile(selectedProfileIdx);
 
 
@@ -137,6 +139,7 @@ public class OptionsActivity extends Activity {
 
             builder.setTitle("Choose Profile");
             Log.d(TAG, "");
+            DBHelper database = new DBHelper(this);
 
             CharSequence[] names = getNamesFromList(arr);
 
@@ -150,8 +153,8 @@ public class OptionsActivity extends Activity {
                             Log.d(TAG, "change prfys button selected 3");
 
                             dialog.dismiss();   //Close dialog
-
-                            selectedProfileIdx = item;
+                            Profile p = arr.get(item);
+                            selectedProfileIdx = (int) p.getId();
                             // Display the selected difficulty level
 
                         }
