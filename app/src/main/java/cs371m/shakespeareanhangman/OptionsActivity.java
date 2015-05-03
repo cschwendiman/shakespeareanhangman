@@ -28,6 +28,7 @@ public class OptionsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Log.d(TAG, "Here");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
