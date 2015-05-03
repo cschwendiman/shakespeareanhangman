@@ -8,12 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 
 public class PlayerProfilesActivity extends Activity {
 
     private SharedPreferences prefs;
-    Profile[] profs;
     private String TAG = "Player Profiles Activity";
 
     @Override
@@ -23,6 +26,14 @@ public class PlayerProfilesActivity extends Activity {
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
+/*
+        DBHelper dbHelper = new DBHelper(this);
+        List<Profile> profiles = dbHelper.getAllProfiles();
+        PlayerProfileAdapter adapter = new PlayerProfileAdapter(this,
+                (Profile[]) profiles.toArray());
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
+*/
     }
 
 
