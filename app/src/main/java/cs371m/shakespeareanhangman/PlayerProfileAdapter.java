@@ -27,9 +27,13 @@ public class PlayerProfileAdapter extends ArrayAdapter<Profile> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.profile_row_view, parent, false);
 
-        TextView textView = (TextView) rowView.findViewById(R.id.profileName);
+        TextView nameView = (TextView) rowView.findViewById(R.id.profileName);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        textView.setText(profiles[position].getName());
+        nameView.setText(profiles[position].getName());
+
+        TextView statsView = (TextView) rowView.findViewById(R.id.stats);
+        String stats = profiles[position].getWins() + " Wins | " + profiles[position].getLosses() + " Losses";
+        statsView.setText(stats);
 
         Log.d(TAG, " GET VIEW FOR ROW " + profiles[position].getName() + " PROFILE");
         return rowView;
