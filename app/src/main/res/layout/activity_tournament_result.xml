@@ -19,12 +19,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tournament_result_image"
+        android:src="@drawable/stickwoman"
+        android:contentDescription="@string/hangman_image_description"
         android:layout_below="@+id/tournament_result"
         android:layout_centerHorizontal="true"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:text=""
         android:id="@+id/score1"
         android:layout_below="@id/tournament_result_image"/>
@@ -40,7 +42,7 @@
         android:layout_below="@+id/score2"
         android:text="@string/new_game"
         android:id="@+id/new_tournament_button"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:onClick="buttonPress"/>
     <Button
