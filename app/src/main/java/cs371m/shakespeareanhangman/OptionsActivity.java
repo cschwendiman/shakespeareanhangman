@@ -36,7 +36,6 @@ public class OptionsActivity extends Activity {
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
         DBHelper database = new DBHelper(this);
-        database.createProfile("Default", new byte[0]);
         arr = database.getAllProfiles();
         selectedProfileIdx = prefs.getInt("selectedProfileIdx", 1);
         //error check for selectedProfileIdx
