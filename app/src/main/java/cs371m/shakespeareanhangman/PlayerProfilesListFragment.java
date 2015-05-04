@@ -2,6 +2,7 @@ package cs371m.shakespeareanhangman;
 
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,9 @@ public class PlayerProfilesListFragment extends ListFragment {
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Log.d(TAG, " list item click!");
+        Log.d(TAG, " list item click!. position: " + position + " id: " + id);
+        Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }
