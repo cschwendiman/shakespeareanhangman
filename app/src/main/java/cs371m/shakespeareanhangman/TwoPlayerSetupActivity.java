@@ -1,6 +1,9 @@
 package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,12 +11,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.List;
 
 
 public class TwoPlayerSetupActivity extends Activity {
     private static final String TAG = "Two player setup activity";
 
     private SharedPreferences prefs;
+    private int playerOneDifficulty;
+    private int playerTwoDifficulty;
+
+    private List<Profile> profiles;
+    private int playerOneProfileIndex;
+    private int playerTwoProfileIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +34,37 @@ public class TwoPlayerSetupActivity extends Activity {
         setContentView(R.layout.activity_two_player_setup);
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+        playerOneDifficulty = prefs.getInt("difficultyPlayer1", 0);
+        playerTwoDifficulty = prefs.getInt("difficultyPlayer2", 0);
+
+        Button p1db = (Button) findViewById(R.id.player_one_difficulty);
+        switch (playerOneDifficulty) {
+            case 0:
+                p1db.setText("Easy");
+                break;
+            case 1:
+                p1db.setText("Medium");
+                break;
+            case 2:
+                p1db.setText("Hard");
+                break;
+        }
+
+        Button p2db = (Button) findViewById(R.id.player_two_difficulty);
+        switch (playerOneDifficulty) {
+            case 0:
+                p2db.setText("Easy");
+                break;
+            case 1:
+                p2db.setText("Medium");
+                break;
+            case 2:
+                p2db.setText("Hard");
+                break;
+        }
+
+        DBHelper database = new DBHelper(this);
+        profiles = database.getAllProfiles();
     }
 
 
@@ -49,17 +93,28 @@ public class TwoPlayerSetupActivity extends Activity {
     public void buttonPress(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.player_one_difficulty:
+                showDialog(0);
+                break;
+            case R.id.player_two_difficulty:
+                showDialog(1);
+                break;
+            case R.id.choose_player_one:
+                showDialog(2);
+                break;
+            case R.id.choose_player_two:
+                showDialog(3);
+                break;
             case R.id.start_game_button:
                 Log.d(TAG, "Start game button pressed");
 
-                /* Change this part to actually get the user's selections instead of dummy values*/
-                String playerName1 = "Player 1";
-                String playerName2 = "Player 2";
-                int difficultyPlayer1 = prefs.getInt("difficulty", 0);
+                String playerName1 = profiles.get(playerOneProfileIndex).getName();
+                String playerName2 = profiles.get(playerTwoProfileIndex).getName();
+                int difficultyPlayer1 = playerOneDifficulty;
 
                 Log.d(TAG, "player 1 difficulty set");
 
-                int difficultyPlayer2 = prefs.getInt("difficulty", 0);
+                int difficultyPlayer2 = playerTwoDifficulty;
 
                 Log.d(TAG, "player 2 difficulty set");
 
@@ -84,5 +139,94 @@ public class TwoPlayerSetupActivity extends Activity {
             default:
                 throw new RuntimeException("Unknown button ID");
         }
+    }
+
+    protected Dialog difficultyHelper(final int viewid, final boolean playerOne) {
+        Log.d(TAG, "Difficulty Open");
+        Dialog dialog = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Difficulty Select");
+        final CharSequence[] levels = {
+                "Easy",
+                "Medium",
+                "Hard"
+        };
+        final int selected = playerOne ? playerOneDifficulty : playerTwoDifficulty;
+        builder.setSingleChoiceItems(levels, selected,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        dialog.dismiss();
+                        if (playerOne) {
+                            playerOneDifficulty = item;
+                        } else {
+                            playerTwoDifficulty = item;
+                        }
+                        Button b = (Button) findViewById(viewid);
+                        if (item == 0)
+                            b.setText("Easy");
+                        else if (item == 1)
+                            b.setText("Medium");
+                        else if (item == 2)
+                            b.setText("Hard");
+                        else
+                            b.setText("Error");
+                        Toast.makeText(getApplicationContext(), levels[item],
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        dialog = builder.create();
+        return dialog;
+    }
+
+    protected Dialog choosePlayerHelper(final int viewid, final boolean playerOne) {
+        Log.d(TAG, "Change Profile Button selected");
+        //inflate menu
+        Dialog dialog = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Profile");
+        CharSequence[] names = getNamesFromList(profiles);
+        final int selected = playerOne ? playerOneProfileIndex : playerTwoProfileIndex;
+        builder.setSingleChoiceItems(names, selected,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        dialog.dismiss();   //Close dialog
+                        Profile p = profiles.get(item);
+                        if (playerOne) {
+                            playerOneProfileIndex = item;
+                        } else {
+                            playerTwoProfileIndex = item;
+                        }
+                        Button b = (Button) findViewById(viewid);
+                        b.setText(p.getName());
+                    }
+                });
+
+        dialog = builder.create();
+        return dialog;
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case 0:
+                return difficultyHelper(R.id.player_one_difficulty, true);
+            case 1:
+                return difficultyHelper(R.id.player_two_difficulty, false);
+            case 2:
+                return choosePlayerHelper(R.id.choose_player_one, true);
+            case 3:
+                return choosePlayerHelper(R.id.choose_player_two, false);
+        }
+        return null;
+    }
+
+    private CharSequence[] getNamesFromList(List<Profile> arr)
+    {
+        CharSequence[] names = new CharSequence[arr.size()];
+        Profile p;
+        for(int i = 0; i < names.length; i++) {
+            p = arr.get(i);
+            names[i] = p.getName();
+        }
+        return names;
     }
 }
