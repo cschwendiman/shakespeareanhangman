@@ -27,7 +27,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Commit Changes"
+        android:text="Save Changes"
         android:id="@+id/commit_edit_profile_button"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
