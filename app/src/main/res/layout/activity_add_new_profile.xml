@@ -6,12 +6,29 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="cs371m.shakespeareanhangman.AddNewProfileActivity">
 
+    <cs371m.shakespeareanhangman.ScriptView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="35sp"
+            android:text="Create Profile"
+            android:id="@+id/add_profile_header" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Player Name:"
+            android:id="@+id/player_name_label"
+            android:layout_below="@+id/add_profile_header" android:layout_marginBottom="10dp"/>
+
     <EditText
         android:id="@+id/profile_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Enter Profile Title"
+        android:hint="Enter Player Name"
+        android:layout_below="@+id/player_name_label"
         android:imeOptions="actionSend"
         />
 
