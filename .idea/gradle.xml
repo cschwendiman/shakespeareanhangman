@@ -8,8 +8,8 @@
         <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.2.1" />
         <option name="modules">
           <set>
-            <option value="/v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman" />
-            <option value="/v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman/app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
       </GradleProjectSettings>

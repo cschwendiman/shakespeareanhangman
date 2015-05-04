@@ -8,10 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 
 public class PlayerProfilesActivity extends Activity {
-
 
     private String TAG = "Player Profiles Activity";
     private SharedPreferences prefs;
@@ -22,7 +25,6 @@ public class PlayerProfilesActivity extends Activity {
         setContentView(R.layout.activity_player_profiles);
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
-
     }
 
 
