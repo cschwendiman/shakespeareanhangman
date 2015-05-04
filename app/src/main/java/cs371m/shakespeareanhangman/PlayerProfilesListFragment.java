@@ -39,8 +39,11 @@ public class PlayerProfilesListFragment extends ListFragment {
 
     public void onListItemClick(ListView l, View v, int position, long id) {
         Log.d(TAG, " list item click!. position: " + position + " id: " + id);
+        Profile profile = adapter.getItem(position);
+        Log.d(TAG, profile.getName());
+        Log.d(TAG, " PASSING ID " + profile.getId());
         Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-        intent.putExtra("id", id);
+        intent.putExtra("profile_id", profile.getId());
         startActivity(intent);
     }
 }

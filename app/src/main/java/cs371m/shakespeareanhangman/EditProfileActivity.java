@@ -27,22 +27,16 @@ public class EditProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         database = new DBHelper(this);
-
-        Log.d(TAG, "1");
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            id = extras.getLong("id");
+            id = extras.getLong("profile_id");
         }
-        id++;//account for 1 base as opposed to zero base?
-        Log.d(TAG, "2 " + id);
+        Log.d(TAG, "PASSED ID " + id);
         p = database.getProfile(id);
 
         e = (EditText) findViewById(R.id.editProfileText);
         e.setHint(p.getName());
         e.setText(p.getName());
-
-        Log.d(TAG, "3");
     }
 
 
