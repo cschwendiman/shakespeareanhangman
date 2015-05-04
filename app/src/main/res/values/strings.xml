@@ -61,4 +61,7 @@
     <!-- Player Profiles -->
     <string name="add_new_profile_button">Add New Profile</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
