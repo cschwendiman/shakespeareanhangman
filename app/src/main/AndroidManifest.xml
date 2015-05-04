@@ -45,17 +45,9 @@
             android:label="@string/title_activity_two_player_setup" >
         </activity>
         <activity
-            android:name=".TournamentResultsActivity"
-            android:label="@string/title_activity_tournament_results" >
-        </activity>
-        <activity
             android:name=".TournamentResultActivity"
             android:label="@string/title_activity_tournament_result" >
 	</activity>
-	<activity
-            android:name=".ChooseProfileActivity"
-            android:label="@string/title_activity_choose_profile" >
-        </activity>
         <activity
             android:name=".PlayerProfilesActivity"
             android:label="@string/title_activity_player_profiles" >

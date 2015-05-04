@@ -16,8 +16,8 @@ import java.util.List;
 
 public class PlayerProfilesActivity extends Activity {
 
-    private SharedPreferences prefs;
     private String TAG = "Player Profiles Activity";
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

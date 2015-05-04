@@ -11,6 +11,9 @@
     <string name="options">Options</string>
     <string name="about">About</string>
 
+    <!-- Add New Profile -->
+    <string name = "profile_title_enter">Enter</string>
+
     <!-- Options -->
     <string name="title_activity_options">Options</string>
 
@@ -49,7 +52,6 @@
 
     <string name="title_activity_two_player_setup">TwoPlayerSetupActivity</string>
     <string name="start_game">Start Game</string>
-    <string name="title_activity_tournament_results">TournamentResultsActivity</string>
     <string name="title_activity_tournament_result">TournamentResultActivity</string>
 
     <string name="title_activity_choose_profile">ChooseProfile</string>
