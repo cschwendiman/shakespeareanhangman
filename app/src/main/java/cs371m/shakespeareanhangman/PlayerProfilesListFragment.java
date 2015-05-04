@@ -13,15 +13,28 @@ import java.util.List;
 public class PlayerProfilesListFragment extends ListFragment {
     private static final String TAG = "Profiles List Fragment";
 
+    private PlayerProfileAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, " onCreate");
         super.onCreate(savedInstanceState);
         DBHelper dbHelper = new DBHelper(getActivity());
         List<Profile> profiles = dbHelper.getAllProfiles();
-        PlayerProfileAdapter adapter = new PlayerProfileAdapter(getActivity(),
-                profiles.toArray(new Profile[profiles.size()]));
+        adapter = new PlayerProfileAdapter(getActivity(), R.layout.profile_row_view, profiles);
+        adapter.addAll(profiles);
         setListAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(TAG, " onResume");
+        super.onResume();
+        adapter.clear();
+        DBHelper dbHelper = new DBHelper(getActivity());
+        List<Profile> profiles = dbHelper.getAllProfiles();
+        adapter.addAll(profiles);
+        adapter.notifyDataSetChanged();
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {

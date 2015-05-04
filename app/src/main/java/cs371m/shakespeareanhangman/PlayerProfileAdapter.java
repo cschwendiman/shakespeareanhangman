@@ -8,14 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class PlayerProfileAdapter extends ArrayAdapter<Profile> {
     private static final String TAG = "Profiles Adapter";
 
     private final Context context;
-    private final Profile[] profiles;
+    private final List<Profile> profiles;
 
-    public PlayerProfileAdapter(Context context, Profile[] profiles) {
-        super(context, R.layout.profile_row_view, profiles);
+    public PlayerProfileAdapter(Context context, int resource, List<Profile> profiles) {
+        super(context, resource, profiles);
         Log.d(TAG, " construct");
         this.context = context;
         this.profiles = profiles;
@@ -27,15 +29,17 @@ public class PlayerProfileAdapter extends ArrayAdapter<Profile> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.profile_row_view, parent, false);
 
+        Profile profile = profiles.get(position);
+
         TextView nameView = (TextView) rowView.findViewById(R.id.profileName);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        nameView.setText(profiles[position].getName());
+        nameView.setText(profile.getName());
 
         TextView statsView = (TextView) rowView.findViewById(R.id.stats);
-        String stats = profiles[position].getWins() + " Wins | " + profiles[position].getLosses() + " Losses";
+        String stats = profile.getWins() + " Wins | " + profile.getLosses() + " Losses";
         statsView.setText(stats);
 
-        Log.d(TAG, " GET VIEW FOR ROW " + profiles[position].getName() + " PROFILE");
+        Log.d(TAG, " GET VIEW FOR ROW " + profile.getName() + " PROFILE");
         return rowView;
     }
 }
