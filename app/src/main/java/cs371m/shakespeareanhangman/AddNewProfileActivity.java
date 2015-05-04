@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -54,6 +55,13 @@ public class AddNewProfileActivity extends Activity {
 
             case R.id.commit_add_new_profile_button:
                 Log.d(TAG, "adding new profile");
+                String name = editText.getText().toString();
+                if (name.equals("") || name.equals(null))
+                {
+                    Toast.makeText(getApplicationContext(), "must enter a name",
+                    Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 saveProfile();
                 finish();
                 break;
@@ -61,7 +69,9 @@ public class AddNewProfileActivity extends Activity {
     }
 
     private void saveProfile() throws SQLException {
-        newProfile.setName(editText.getText().toString());
+
+        String name = editText.getText().toString();
+        newProfile.setName(name);
         DBHelper database = new DBHelper(this);
         database.createProfile(newProfile.getName(), new byte[0]);
     }
