@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="/v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<<<<<<< HEAD
+<module external.linked.project.path="/v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="java-gradle" name="Java-Gradle">
       <configuration>
-        <option name="BUILD_FOLDER_PATH" value="/v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman/build" />
+        <option name="BUILD_FOLDER_PATH" value="/v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/build" />
+=======
+<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="java-gradle" name="Java-Gradle">
+      <configuration>
+        <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" />
+>>>>>>> master
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-<<<<<<< HEAD
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <output url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/build/classes/main" />
     <output-test url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/build/classes/test" />
-=======
-    <output url="file:///v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman/build/classes/main" />
-    <output-test url="file:///v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman/build/classes/test" />
->>>>>>> 5e934fb443c787acdae174c83e95fee2a045694b
     <exclude-output />
-    <content url="file:///v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman">
-      <excludeFolder url="file:///v/filer4b/v38q001/mjh2793/Desktop/shakespeareanhangman/.gradle" />
+<<<<<<< HEAD
+    <content url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman">
+      <excludeFolder url="file:///v/filer4b/v38q001/kat25/MobileComputing/shakespeareanhangman/.gradle" />
+=======
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.gradle" />
+>>>>>>> master
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
