@@ -8,8 +8,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-
 
 public class MainMenuActivity extends Activity {
     private static final String TAG = "Main Menu Activity";
@@ -22,6 +20,11 @@ public class MainMenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        dbHelper = new DBHelper(this);
+        if (null == dbHelper.getProfile(1)) {
+            dbHelper.createProfile("Default", new byte[0]);
+        }
 
         SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         soundOn = prefs.getBoolean("soundToggle",false);

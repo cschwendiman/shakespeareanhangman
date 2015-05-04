@@ -117,6 +117,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private Profile cursorToProfile(Cursor cursor) {
+        if (cursor.getCount() == 0)
+            return null;
         Profile profile = new Profile();
         profile.setId(cursor.getLong(0));
         profile.setName(cursor.getString(1));
