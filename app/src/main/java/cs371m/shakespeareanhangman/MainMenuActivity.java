@@ -43,12 +43,18 @@ public class MainMenuActivity extends Activity {
          }
      }
 
-    public void buttonClick(View view) {
-        Log.d(TAG, " Button Clicked");
-        Intent intent;
+    @Override
+    protected void onPause() {
+        super.onPause();
+
         if (soundOn) {
             mediaPlayer.stop();
         }
+    }
+
+    public void buttonClick(View view) {
+        Log.d(TAG, " Button Clicked");
+        Intent intent;
         switch (view.getId()) {
             case R.id.new_game_button:
                 Log.d(TAG, "New Game Button");
