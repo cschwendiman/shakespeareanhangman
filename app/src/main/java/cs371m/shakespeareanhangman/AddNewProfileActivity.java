@@ -3,8 +3,11 @@ package cs371m.shakespeareanhangman;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -88,11 +91,26 @@ public class AddNewProfileActivity extends Activity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri uri = data.getData();
+            Log.d(TAG, "HERE 0");
 
             try {
+                // Get image's rotation
+                ExifInterface exif = new ExifInterface(getRealPathFromURI(uri, this));
+                Log.d(TAG, "HERE 1");
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                Log.d(TAG, "HERE 2");
+
+                Log.d(TAG, "Orientation is " + orientation);
 
                 Bitmap d = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
+
+                // Rotate the image if it was taken vertically
+                if(orientation == 6) {
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+                    d = Bitmap.createBitmap(d, 0, 0, d.getWidth(), d.getHeight(), matrix, true);
+                }
 
                 ImageView imageView = (ImageView) findViewById(R.id.profile_pic);
 
@@ -108,6 +126,19 @@ public class AddNewProfileActivity extends Activity {
                 Log.d(TAG, "In Exception");
                 e.printStackTrace();
             }
+        }
+    }
+
+    // Source: http://stackoverflow.com/questions/19960790/exifinterface-returns-null-for-all-tags
+    private String getRealPathFromURI(Uri contentURI, Activity activity) {
+        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file
+            // path
+            return contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
         }
     }
 
