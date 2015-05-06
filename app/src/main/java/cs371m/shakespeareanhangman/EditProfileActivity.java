@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class EditProfileActivity extends Activity {
@@ -41,7 +42,8 @@ public class EditProfileActivity extends Activity {
         e.setHint(name);
         e.setText(name);
 
-        if(name.equals("Default"))
+        List<Profile> list = database.getAllProfiles();
+        if(list.size() == 1)
         {
             Button btn = (Button) findViewById(R.id.delete_profile);
             btn.setEnabled(false);
