@@ -22,12 +22,17 @@ public class MainMenuActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        dbHelper = new DBHelper(this);
-        if (null == dbHelper.getProfile(1)) {
-            dbHelper.createProfile("Default", new byte[0]);
-        }
-
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+        boolean initialized = prefs.getBoolean("initialized", false);
+        if (! initialized) {
+            dbHelper = new DBHelper(this);
+            Profile profile = dbHelper.createProfile("Default", new byte[0]);
+
+            SharedPreferences.Editor ed = prefs.edit();
+            ed.putLong("currentPlayerId", profile.getId());
+            ed.putBoolean("initialized", true);
+            ed.apply();
+        }
     }
 
      @Override

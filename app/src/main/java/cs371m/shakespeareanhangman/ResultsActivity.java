@@ -22,6 +22,10 @@ public class ResultsActivity extends Activity {
 
         SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         boolean soundOn = prefs.getBoolean("soundToggle",false);
+        long currentProfileId = prefs.getInt("currentProfileId", 1);
+
+        DBHelper dbHelper = new DBHelper(this);
+        Profile profile = dbHelper.getProfile(currentProfileId);
 
         Bundle extras = getIntent().getExtras();
         resultView = (TextView) findViewById(R.id.result);
@@ -33,6 +37,7 @@ public class ResultsActivity extends Activity {
                 mediaPlayer.setLooping(false);
                 mediaPlayer.start();
             }
+            profile.setWins(profile.getWins()+1);
         }
         else {
             resultView.setText(R.string.result_loss);
@@ -42,7 +47,9 @@ public class ResultsActivity extends Activity {
                 mediaPlayer.setLooping(false);
                 mediaPlayer.start();
             }
+            profile.setLosses(profile.getLosses()+1);
         }
+        dbHelper.updateProfile(profile);
 
         phraseView = (TextView) findViewById(R.id.phrase);
         phraseView.setText(extras.getString("phrase"));
