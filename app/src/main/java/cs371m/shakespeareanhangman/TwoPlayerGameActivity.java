@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TwoPlayerGameActivity extends Activity {
-    private static final String TAG = "Two Player Game Activity";
+    private static final String TAG = "2P Game Activity";
 
     private HangmanGame game;
     private TextView phraseView;

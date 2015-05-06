@@ -37,21 +37,34 @@ public class TournamentResultActivity extends Activity {
             mediaPlayer.start();
         }
 
+        DBHelper dbHelper = new DBHelper(this);
+
         // Get the players' names and scores
         playerName1 = prefs.getString("playerName1", "Player 1");
         playerName2 = prefs.getString("playerName2", "Player 2");
         playerScore1 = prefs.getInt("playerWins1", 0);
         playerScore2 = prefs.getInt("playerWins2", 0);
+        long playerId1 = prefs.getLong("playerId1", 0);
+        long playerId2 = prefs.getLong("playerId2", 0);
+        Profile p1 = dbHelper.getProfile(playerId1);
+        Profile p2 = dbHelper.getProfile(playerId2);
 
         resultView = (TextView) findViewById(R.id.tournament_result);
-
         if(playerScore1 > playerScore2) {
             resultView.setText(playerName1 + " Won!");
+            p1.setWins(p1.getWins()+1);
+            p2.setLosses(p2.getLosses()+1);
         } else if(playerScore2 > playerScore1) {
             resultView.setText(playerName2 + " Won!");
+            p1.setLosses(p1.getLosses()+1);
+            p2.setWins(p2.getWins()+1);
         } else {
             resultView.setText("You Tied!");
         }
+        p1.setGamesPlayed(p1.getGamesPlayed()+1);
+        p2.setGamesPlayed(p2.getGamesPlayed()+1);
+        dbHelper.updateProfile(p1);
+        dbHelper.updateProfile(p2);
 
         score1View = (TextView) findViewById(R.id.score1);
         score1View.setText(playerName1 + "'s score: " + playerScore1);

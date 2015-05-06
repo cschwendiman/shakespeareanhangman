@@ -22,10 +22,10 @@ public class ResultsActivity extends Activity {
 
         SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         boolean soundOn = prefs.getBoolean("soundToggle",false);
-        long currentProfileId = prefs.getInt("currentProfileId", 1);
+        long currentPlayerId = prefs.getLong("currentPlayerId", 0);
 
         DBHelper dbHelper = new DBHelper(this);
-        Profile profile = dbHelper.getProfile(currentProfileId);
+        Profile profile = dbHelper.getProfile(currentPlayerId);
 
         Bundle extras = getIntent().getExtras();
         resultView = (TextView) findViewById(R.id.result);
@@ -49,6 +49,7 @@ public class ResultsActivity extends Activity {
             }
             profile.setLosses(profile.getLosses()+1);
         }
+        profile.setGamesPlayed(profile.getGamesPlayed()+1);
         dbHelper.updateProfile(profile);
 
         phraseView = (TextView) findViewById(R.id.phrase);

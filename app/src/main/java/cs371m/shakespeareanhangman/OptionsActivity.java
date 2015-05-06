@@ -43,8 +43,15 @@ public class OptionsActivity extends Activity {
 
         DBHelper database = new DBHelper(this);
         profiles = database.getAllProfiles();
-        long currentPlayerId = prefs.getLong("currentPlayerId", 1);
+        long currentPlayerId = prefs.getLong("currentPlayerId", 0);
         selectedProfile = database.getProfile(currentPlayerId);
+        selectedProfileIndex = 0;
+        for (Profile p : profiles) {
+            if (p.getId() == selectedProfile.getId()) {
+                break;
+            }
+            selectedProfileIndex++;
+        }
 
         soundToggle = prefs.getBoolean("soundToggle",false);
         ToggleButton soundToggleButton = (ToggleButton) findViewById(R.id.toggle_sound_button);

@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class TwoPlayerSetupActivity extends Activity {
-    private static final String TAG = "Two player setup activity";
+    private static final String TAG = "2P Setup Activity";
 
     private SharedPreferences prefs;
     private int playerOneDifficulty;
@@ -27,6 +27,12 @@ public class TwoPlayerSetupActivity extends Activity {
     private List<Profile> profiles;
     private int playerOneProfileIndex;
     private int playerTwoProfileIndex;
+
+    final CharSequence[] difficultyLevels = {
+            "Easy",
+            "Medium",
+            "Hard"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,57 +46,26 @@ public class TwoPlayerSetupActivity extends Activity {
 
         // Start with the previous player1 difficulty filled in as the default
         Button p1db = (Button) findViewById(R.id.player_one_difficulty);
-        switch (playerOneDifficulty) {
-            case 0:
-                p1db.setText("Easy");
-                break;
-            case 1:
-                p1db.setText("Medium");
-                break;
-            case 2:
-                p1db.setText("Hard");
-                break;
-        }
+        p1db.setText(difficultyLevels[playerOneDifficulty]);
 
         // Start with the previous player2 difficulty filled in as the default
         Button p2db = (Button) findViewById(R.id.player_two_difficulty);
-        switch (playerOneDifficulty) {
-            case 0:
-                p2db.setText("Easy");
-                break;
-            case 1:
-                p2db.setText("Medium");
-                break;
-            case 2:
-                p2db.setText("Hard");
-                break;
-        }
+        p2db.setText(difficultyLevels[playerTwoDifficulty]);
 
         DBHelper database = new DBHelper(this);
         profiles = database.getAllProfiles();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_two_player_setup, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        long playerOneProfileId = prefs.getLong("playerId1", prefs.getLong("currentPlayerId", 0));
+        long playerTwoProfileId = prefs.getLong("playerId2", 0);
+        int i = 0;
+        for (Profile p : profiles) {
+            if (p.getId() == playerOneProfileId) {
+                playerOneProfileIndex = i;
+            }
+            if (p.getId() == playerTwoProfileId) {
+                playerTwoProfileIndex = i;
+            }
+            i++;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     // Handle button presses from the user
@@ -104,7 +79,6 @@ public class TwoPlayerSetupActivity extends Activity {
             case R.id.player_two_difficulty:
                 showDialog(1);
                 break;
-
             // User wishes to select a profile for player1 or player2
             case R.id.choose_player_one:
                 showDialog(2);
@@ -117,8 +91,8 @@ public class TwoPlayerSetupActivity extends Activity {
             case R.id.start_game_button:
                 Log.d(TAG, "Start game button pressed");
 
-                String playerName1 = profiles.get(playerOneProfileIndex).getName();
-                String playerName2 = profiles.get(playerTwoProfileIndex).getName();
+                Profile player1 = profiles.get(playerOneProfileIndex);
+                Profile player2 = profiles.get(playerTwoProfileIndex);
                 int difficultyPlayer1 = playerOneDifficulty;
 
                 Log.d(TAG, "player 1 difficulty set to " + difficultyPlayer1);
@@ -129,8 +103,10 @@ public class TwoPlayerSetupActivity extends Activity {
 
                 /* Save the game setup info in shared preferences */
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("playerName1", playerName1);
-                ed.putString("playerName2", playerName2);
+                ed.putLong("playerId1", player1.getId());
+                ed.putLong("playerId2", player2.getId());
+                ed.putString("playerName1", player1.getName());
+                ed.putString("playerName2", player2.getName());
                 ed.putInt("difficultyPlayer1", difficultyPlayer1);
                 ed.putInt("difficultyPlayer2", difficultyPlayer2);
 
@@ -154,43 +130,28 @@ public class TwoPlayerSetupActivity extends Activity {
 
     // Dialog to choose a difficulty level for either player1 or player2
     protected Dialog difficultyHelper(final int viewid, final boolean playerOne) {
-
         // Set up the dialog with the three difficulty level options
         Log.d(TAG, "Difficulty Open");
         Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Difficulty Select");
-        final CharSequence[] levels = {
-                "Easy",
-                "Medium",
-                "Hard"
-        };
 
         // Handle choice selection
         final int selected = playerOne ? playerOneDifficulty : playerTwoDifficulty;
-        builder.setSingleChoiceItems(levels, selected,
+        builder.setSingleChoiceItems(difficultyLevels, selected,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         dialog.dismiss();
-
                         // Update the chosen difficulty to what was selected
                         if (playerOne) {
                             playerOneDifficulty = item;
                         } else {
                             playerTwoDifficulty = item;
                         }
-
                         // Update the button text to what was selected
                         Button b = (Button) findViewById(viewid);
-                        if (item == 0)
-                            b.setText("Easy");
-                        else if (item == 1)
-                            b.setText("Medium");
-                        else if (item == 2)
-                            b.setText("Hard");
-                        else
-                            b.setText("Error");
-                        Toast.makeText(getApplicationContext(), levels[item],
+                        b.setText(difficultyLevels[item]);
+                        Toast.makeText(getApplicationContext(), difficultyLevels[item],
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -211,7 +172,6 @@ public class TwoPlayerSetupActivity extends Activity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         dialog.dismiss();   //Close dialog
-
                         // Set player profile to the profile selected
                         Profile p = profiles.get(item);
                         if (playerOne) {
@@ -219,7 +179,6 @@ public class TwoPlayerSetupActivity extends Activity {
                         } else {
                             playerTwoProfileIndex = item;
                         }
-
                         // Change button text to the name of the selected player
                         Button b = (Button) findViewById(viewid);
                         b.setText(p.getName());
@@ -245,12 +204,12 @@ public class TwoPlayerSetupActivity extends Activity {
         return null;
     }
 
-    private CharSequence[] getNamesFromList(List<Profile> arr)
+    private CharSequence[] getNamesFromList(List<Profile> profiles)
     {
-        CharSequence[] names = new CharSequence[arr.size()];
+        CharSequence[] names = new CharSequence[profiles.size()];
         Profile p;
         for(int i = 0; i < names.length; i++) {
-            p = arr.get(i);
+            p = profiles.get(i);
             names[i] = p.getName();
         }
         return names;
