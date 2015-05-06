@@ -115,6 +115,7 @@ public class AddNewProfileActivity extends Activity {
 
                 ImageView imageView = (ImageView) findViewById(R.id.profile_pic);
 
+                // Credit: http://stackoverflow.com/questions/10271020/bitmap-too-large-to-be-uploaded-into-a-texture
                 // Scale the image so it's not too big to upload
                 int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
                 Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
