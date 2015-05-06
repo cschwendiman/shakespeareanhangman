@@ -20,7 +20,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String PROFILES_TABLE_NAME = "profiles";
     public static final String PROFILES_COLUMN_ID = "id";
     public static final String PROFILES_COLUMN_NAME = "name";
-    public static final String PROFILES_COLUMN_HIGH_SCORE = "high_score";
     public static final String PROFILES_COLUMN_WINS = "wins";
     public static final String PROFILES_COLUMN_LOSSES = "losses";
     public static final String PROFILES_COLUMN_GAMES_PLAYED = "games_played";
@@ -37,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d(TAG, " Created profiles database.");
         db.execSQL(
                 "create table profiles " +
-                        "(id integer primary key, name text, high_score integer, wins integer, losses integer, games_played integer, image blob)"
+                        "(id integer primary key, name text, wins integer, losses integer, games_played integer, image blob)"
         );
     }
 
@@ -54,7 +53,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(PROFILES_COLUMN_NAME, name);
-        contentValues.put(PROFILES_COLUMN_HIGH_SCORE, 0);
         contentValues.put(PROFILES_COLUMN_WINS, 0);
         contentValues.put(PROFILES_COLUMN_LOSSES, 0);
         contentValues.put(PROFILES_COLUMN_GAMES_PLAYED, 0);
@@ -88,7 +86,6 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(PROFILES_COLUMN_NAME, profile.getName());
-        contentValues.put(PROFILES_COLUMN_HIGH_SCORE, profile.getHighScore());
         contentValues.put(PROFILES_COLUMN_WINS, profile.getWins());
         contentValues.put(PROFILES_COLUMN_LOSSES, profile.getLosses());
         contentValues.put(PROFILES_COLUMN_GAMES_PLAYED, profile.getGamesPlayed());
@@ -122,11 +119,10 @@ public class DBHelper extends SQLiteOpenHelper {
         Profile profile = new Profile();
         profile.setId(cursor.getLong(0));
         profile.setName(cursor.getString(1));
-        profile.setHighScore(cursor.getInt(2));
-        profile.setWins(cursor.getInt(3));
-        profile.setLosses(cursor.getInt(4));
-        profile.setGamesPlayed(cursor.getInt(5));
-        profile.setImage(cursor.getBlob(6));
+        profile.setWins(cursor.getInt(2));
+        profile.setLosses(cursor.getInt(3));
+        profile.setGamesPlayed(cursor.getInt(4));
+        profile.setImage(cursor.getBlob(5));
         return profile;
     }
 }

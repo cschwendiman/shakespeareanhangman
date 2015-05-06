@@ -13,7 +13,6 @@ public class Profile {
 
     private long id;
     private String name;
-    private int highScore;
     private int wins;
     private int losses;
     private int gamesPlayed;
@@ -22,17 +21,15 @@ public class Profile {
     public Profile()
     {
         name = "New Profile";
-        highScore = 0;
         wins = 0;
         losses = 0;
         gamesPlayed = 0;
         image = new byte[0];
     }
 
-    public Profile(String name, int highScore, int wins, int losses, int gamesPlayed, byte[] image)
+    public Profile(String name, int wins, int losses, int gamesPlayed, byte[] image)
     {
         this.name = name;
-        this.highScore = highScore;
         this.wins = wins;
         this.losses = losses;
         this.gamesPlayed = gamesPlayed;
@@ -43,10 +40,6 @@ public class Profile {
 
     public void setName(String name){
         this.name = name;
-    }
-
-    public void setHighScore(int highScore){
-        this.highScore = highScore;
     }
 
     public void setWins(int wins){
@@ -66,8 +59,6 @@ public class Profile {
     public long getId() { return id; }
 
     public String getName() { return name; }
-
-    public int getHighScore() { return highScore; }
 
     public int getWins() { return wins; }
 
