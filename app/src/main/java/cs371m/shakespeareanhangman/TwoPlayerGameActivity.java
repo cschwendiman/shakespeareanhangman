@@ -54,9 +54,6 @@ public class TwoPlayerGameActivity extends Activity {
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         soundOn = prefs.getBoolean("soundToggle",false);
 
-        // Choose the secret phrase and store as a Phrase object for later
-        this.secretPhrase = getSecretPhrase();
-
         // Get player turn
         int roundNum = prefs.getInt("roundNumber", 0);
 
@@ -68,6 +65,9 @@ public class TwoPlayerGameActivity extends Activity {
             playerName = prefs.getString("playerName2", "Player 2");
             isFirstPlayer = false;
         }
+
+        // Choose the secret phrase and store as a Phrase object for later
+        this.secretPhrase = getSecretPhrase();
 
         TextView nameView = (TextView) findViewById(R.id.player_name);
         nameView.setText(playerName + "'s turn");
@@ -109,7 +109,16 @@ public class TwoPlayerGameActivity extends Activity {
         Phrase chosenPhrase = new Phrase("ERROR", "ERROR");
         String newPhraseQueue = "";
         String phraseQueue = prefs.getString("phraseQueue","");
-        int difficultyLevel = prefs.getInt("difficulty",0);
+
+        // Select difficulty level based on player's preference
+        int difficultyLevel;
+        if(isFirstPlayer) {
+            difficultyLevel = prefs.getInt("difficultyPlayer1", 0);
+            Log.d(TAG, "player 1 difficulty read as " + difficultyLevel);
+        } else {
+            difficultyLevel = prefs.getInt("difficultyPlayer2", 0);
+            Log.d(TAG, "player 2 difficulty read as " + difficultyLevel);
+        }
         try {
             InputStream quotes = null;
 

@@ -33,10 +33,12 @@ public class TwoPlayerSetupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_player_setup);
 
+        // Get the player1 and player2 difficulty preferences from the previous game, if any
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         playerOneDifficulty = prefs.getInt("difficultyPlayer1", 0);
         playerTwoDifficulty = prefs.getInt("difficultyPlayer2", 0);
 
+        // Start with the previous player1 difficulty filled in as the default
         Button p1db = (Button) findViewById(R.id.player_one_difficulty);
         switch (playerOneDifficulty) {
             case 0:
@@ -50,6 +52,7 @@ public class TwoPlayerSetupActivity extends Activity {
                 break;
         }
 
+        // Start with the previous player2 difficulty filled in as the default
         Button p2db = (Button) findViewById(R.id.player_two_difficulty);
         switch (playerOneDifficulty) {
             case 0:
@@ -90,21 +93,27 @@ public class TwoPlayerSetupActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Handle button presses from the user
     public void buttonPress(View view) {
         Intent intent;
         switch (view.getId()) {
+            // User wishes to select the difficulty level for player1 or player2
             case R.id.player_one_difficulty:
                 showDialog(0);
                 break;
             case R.id.player_two_difficulty:
                 showDialog(1);
                 break;
+
+            // User wishes to select a profile for player1 or player2
             case R.id.choose_player_one:
                 showDialog(2);
                 break;
             case R.id.choose_player_two:
                 showDialog(3);
                 break;
+
+            // User is happy with the selections and wishes to start the tournament
             case R.id.start_game_button:
                 Log.d(TAG, "Start game button pressed");
 
@@ -112,11 +121,11 @@ public class TwoPlayerSetupActivity extends Activity {
                 String playerName2 = profiles.get(playerTwoProfileIndex).getName();
                 int difficultyPlayer1 = playerOneDifficulty;
 
-                Log.d(TAG, "player 1 difficulty set");
+                Log.d(TAG, "player 1 difficulty set to " + difficultyPlayer1);
 
                 int difficultyPlayer2 = playerTwoDifficulty;
 
-                Log.d(TAG, "player 2 difficulty set");
+                Log.d(TAG, "player 2 difficulty set to " + difficultyPlayer2);
 
                 /* Save the game setup info in shared preferences */
                 SharedPreferences.Editor ed = prefs.edit();
@@ -141,7 +150,10 @@ public class TwoPlayerSetupActivity extends Activity {
         }
     }
 
+    // Dialog to choose a difficulty level for either player1 or player2
     protected Dialog difficultyHelper(final int viewid, final boolean playerOne) {
+
+        // Set up the dialog with the three difficulty level options
         Log.d(TAG, "Difficulty Open");
         Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -151,16 +163,22 @@ public class TwoPlayerSetupActivity extends Activity {
                 "Medium",
                 "Hard"
         };
+
+        // Handle choice selection
         final int selected = playerOne ? playerOneDifficulty : playerTwoDifficulty;
         builder.setSingleChoiceItems(levels, selected,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         dialog.dismiss();
+
+                        // Update the chosen difficulty to what was selected
                         if (playerOne) {
                             playerOneDifficulty = item;
                         } else {
                             playerTwoDifficulty = item;
                         }
+
+                        // Update the button text to what was selected
                         Button b = (Button) findViewById(viewid);
                         if (item == 0)
                             b.setText("Easy");
@@ -178,6 +196,7 @@ public class TwoPlayerSetupActivity extends Activity {
         return dialog;
     }
 
+    // Dialog to choose a profile for player1 or player2
     protected Dialog choosePlayerHelper(final int viewid, final boolean playerOne) {
         Log.d(TAG, "Change Profile Button selected");
         //inflate menu
@@ -190,12 +209,16 @@ public class TwoPlayerSetupActivity extends Activity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         dialog.dismiss();   //Close dialog
+
+                        // Set player profile to the profile selected
                         Profile p = profiles.get(item);
                         if (playerOne) {
                             playerOneProfileIndex = item;
                         } else {
                             playerTwoProfileIndex = item;
                         }
+
+                        // Change button text to the name of the selected player
                         Button b = (Button) findViewById(viewid);
                         b.setText(p.getName());
                     }
@@ -205,6 +228,7 @@ public class TwoPlayerSetupActivity extends Activity {
         return dialog;
     }
 
+    // Show dialogs to select the difficulty level or profile for a player
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case 0:
