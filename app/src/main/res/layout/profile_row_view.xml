@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Name"
-            android:layout_centerVertical="true"
-            android:id="@+id/profileName"
-            android:layout_margin="20dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stats"
-            android:id="@+id/stats"
-            android:layout_alignParentEnd="false"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"/>
-</RelativeLayout>
+    <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/profile_image"
+            android:background="@drawable/border"
+            android:src="@drawable/defaultprofileimage"
+            android:layout_margin="10dp" android:contentDescription="Profile Image"/>
+    <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:fontFamily="serif"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/profileName"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Profile Name"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:text="Stats"
+                android:id="@+id/stats"/>
+    </LinearLayout>
+
+</LinearLayout>

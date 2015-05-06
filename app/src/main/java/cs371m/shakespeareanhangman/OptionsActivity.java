@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -59,8 +60,8 @@ public class OptionsActivity extends Activity {
             soundToggleButton.toggle();
 
         difficulty = prefs.getInt("difficulty",0);
-        Button difficultyButton = (Button) findViewById(R.id.diff_button);
-        difficultyButton.setText("Difficulty: " + difficultyLevels[difficulty]);
+        Button difficultyButton = (Button) findViewById(R.id.difficulty_button);
+        difficultyButton.setText(difficultyLevels[difficulty]);
     }
 
     protected void onPause()
@@ -94,8 +95,8 @@ public class OptionsActivity extends Activity {
                                 dialog.dismiss();   //Close dialog
                                 difficulty = item;
                                 Log.d(TAG, "Difficulty: " + difficultyLevels[difficulty]);
-                                Button b = (Button) findViewById(R.id.diff_button);
-                                b.setText("Difficulty: " + difficultyLevels[difficulty]);
+                                Button b = (Button) findViewById(R.id.difficulty_button);
+                                b.setText(difficultyLevels[difficulty]);
                                 // Display the selected difficulty level
                                 Toast.makeText(getApplicationContext(), difficultyLevels[difficulty],
                                         Toast.LENGTH_SHORT).show();
@@ -114,6 +115,10 @@ public class OptionsActivity extends Activity {
                                 dialog.dismiss();   //Close dialog
                                 selectedProfileIndex = item;
                                 selectedProfile = profiles.get(item);
+                                TextView t = (TextView) findViewById(R.id.profile_name);
+                                t.setText("Profile: " + selectedProfile.getName());
+                                Toast.makeText(getApplicationContext(), "Profile '" + selectedProfile.getName() + "' selected",
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                 dialog = builder.create();
@@ -137,7 +142,7 @@ public class OptionsActivity extends Activity {
     public void buttonClick(View view) {
         Log.d(TAG, " Button Clicked");
         switch (view.getId()) {
-            case R.id.changeProfile:
+            case R.id.choose_profile_button:
                 showDialog(DIALOG_CHOOSE_PROFILE_ID);
                 break;
             case R.id.toggle_sound_button:
@@ -157,7 +162,7 @@ public class OptionsActivity extends Activity {
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.diff_button:
+            case R.id.difficulty_button:
                 showDialog(DIALOG_DIFFICULTY_ID);
                 break;
         }
