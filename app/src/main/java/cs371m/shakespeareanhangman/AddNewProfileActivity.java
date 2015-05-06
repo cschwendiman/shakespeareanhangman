@@ -94,11 +94,12 @@ public class AddNewProfileActivity extends Activity {
             Log.d(TAG, "HERE 0");
 
             try {
+
+                // Useful stackoverflow post: http://stackoverflow.com/questions/3647993/android-bitmaps-loaded-from-gallery-are-rotated-in-imageview
+
                 // Get image's rotation
                 ExifInterface exif = new ExifInterface(getRealPathFromURI(uri, this));
-                Log.d(TAG, "HERE 1");
                 int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-                Log.d(TAG, "HERE 2");
 
                 Log.d(TAG, "Orientation is " + orientation);
 
@@ -106,7 +107,7 @@ public class AddNewProfileActivity extends Activity {
                 // Log.d(TAG, String.valueOf(bitmap));
 
                 // Rotate the image if it was taken vertically
-                if(orientation == 6) {
+                if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
                     Matrix matrix = new Matrix();
                     matrix.postRotate(90);
                     d = Bitmap.createBitmap(d, 0, 0, d.getWidth(), d.getHeight(), matrix, true);
