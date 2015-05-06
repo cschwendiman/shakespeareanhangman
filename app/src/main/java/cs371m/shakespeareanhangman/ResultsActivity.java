@@ -57,10 +57,14 @@ public class ResultsActivity extends Activity {
             case R.id.new_game_result_button:
                 intent = new Intent(this, GameActivity.class);
                 startActivity(intent);
+                // Call finish to remove activity from stack
+                finish();
                 break;
             case R.id.main_menu_result_button:
                 intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
+                // Call finish to remove activity from stack
+                finish();
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
