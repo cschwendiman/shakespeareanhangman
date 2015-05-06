@@ -64,10 +64,10 @@ public class OptionsActivity extends Activity {
 
     }
 
-    protected void onStop()
+    protected void onPause()
     {
         Log.d(TAG, "leaving options menu");
-        super.onStop();
+        super.onPause();
         SharedPreferences.Editor ed = prefs.edit();
 
         if (prefs.getInt("difficulty", 0) != difficulty) {

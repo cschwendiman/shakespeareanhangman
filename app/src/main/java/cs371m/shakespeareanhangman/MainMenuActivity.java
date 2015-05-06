@@ -13,6 +13,7 @@ public class MainMenuActivity extends Activity {
     private static final String TAG = "Main Menu Activity";
     private MediaPlayer mediaPlayer;
     private boolean soundOn;
+    private SharedPreferences prefs;
 
     private DBHelper dbHelper;
 
@@ -26,15 +27,21 @@ public class MainMenuActivity extends Activity {
             dbHelper.createProfile("Default", new byte[0]);
         }
 
-        SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
-        soundOn = prefs.getBoolean("soundToggle",false);
-        if (soundOn) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.intro);
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setLooping(false);
-            mediaPlayer.start();
-        }
+        prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
     }
+
+     @Override
+    protected void onResume() {
+         super.onResume();
+
+         soundOn = prefs.getBoolean("soundToggle",false);
+         if (soundOn) {
+             mediaPlayer = MediaPlayer.create(this, R.raw.intro);
+             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+             mediaPlayer.setLooping(false);
+             mediaPlayer.start();
+         }
+     }
 
     public void buttonClick(View view) {
         Log.d(TAG, " Button Clicked");
