@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -35,8 +36,16 @@ public class EditProfileActivity extends Activity {
         p = database.getProfile(id);
 
         e = (EditText) findViewById(R.id.editProfileText);
-        e.setHint(p.getName());
-        e.setText(p.getName());
+
+        String name = p.getName();
+        e.setHint(name);
+        e.setText(name);
+
+        if(name.equals("Default"))
+        {
+            Button btn = (Button) findViewById(R.id.delete_profile);
+            btn.setEnabled(false);
+        }
     }
 
 
