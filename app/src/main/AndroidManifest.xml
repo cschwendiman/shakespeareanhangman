@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs371m.shakespeareanhangman" >
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -9,6 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainMenuActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,46 +21,57 @@
         </activity>
         <activity
             android:name=".AboutActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
             android:name=".GameActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_game" >
         </activity>
         <activity
             android:name=".OptionsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_options" >
         </activity>
         <activity
             android:name=".ResultsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_results" >
         </activity>
         <activity
             android:name=".TwoPlayerGameActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_two_player_game" >
         </activity>
         <activity
             android:name=".TwoPlayerResultsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_two_player_results" >
         </activity>
         <activity
             android:name=".TwoPlayerSetupActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_two_player_setup" >
         </activity>
         <activity
             android:name=".TournamentResultActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_tournament_result" >
 	</activity>
         <activity
             android:name=".PlayerProfilesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_player_profiles" >
         </activity>
         <activity
             android:name=".AddNewProfileActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_new_profile" >
         </activity>
         <activity
                 android:name=".EditProfileActivity"
+            android:screenOrientation="portrait"
                 android:label="@string/title_activity_edit_profile" >
         </activity>
     </application>
