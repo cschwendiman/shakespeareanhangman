@@ -85,6 +85,8 @@ public class TwoPlayerResultsActivity extends Activity {
                     intent = new Intent(this, TournamentResultActivity.class);
                 }
                 startActivity(intent);
+                // Call finish to remove activity from stack
+                finish();
                 break;
 
             default:

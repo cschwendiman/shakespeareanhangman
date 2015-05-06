@@ -144,6 +144,8 @@ public class TwoPlayerSetupActivity extends Activity {
 
                 intent = new Intent(this, TwoPlayerGameActivity.class);
                 startActivity(intent);
+                // Call finish to remove activity from stack
+                finish();
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
