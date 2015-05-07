@@ -39,19 +39,22 @@
         android:onClick="buttonClick"/>
 
     <ImageView
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_margin="10dp"
-        android:id="@+id/edited_profile_pic"
-        android:src="@drawable/defaultprofileimage"
-        android:layout_below="@id/edit_profile_photo_button"
-        android:contentDescription="profile pic"
-        android:layout_centerHorizontal="true" />
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/border"
+            android:cropToPadding="true"
+            android:id="@+id/profile_image"
+            android:src="@drawable/defaultprofileimage"
+            android:layout_below="@id/edit_profile_photo_button"
+            android:contentDescription="profile pic"
+            android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edited_profile_pic"
+        android:layout_below="@id/profile_image"
         android:text="Cancel"
         android:id="@+id/cancel_edit_profile_button"
         android:layout_centerVertical="true"
@@ -62,7 +65,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edited_profile_pic"
+        android:layout_below="@id/profile_image"
         android:text="Save Changes"
         android:id="@+id/commit_edit_profile_button"
         android:layout_centerVertical="true"
@@ -73,7 +76,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edited_profile_pic"
+        android:layout_below="@id/profile_image"
         android:text="Delete Profile"
         android:id="@+id/delete_profile"
         android:onClick="buttonClick" android:layout_toLeftOf="@+id/commit_edit_profile_button"

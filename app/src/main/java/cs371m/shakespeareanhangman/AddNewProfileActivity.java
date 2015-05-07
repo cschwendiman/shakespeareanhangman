@@ -6,36 +6,31 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class AddNewProfileActivity extends Activity {
 
     String TAG = "Add New Profile Activity";
     EditText editText;
+    ImageView imageView;
     Profile newProfile;
     private SharedPreferences prefs;
     private int PICK_IMAGE_REQUEST = 1;
+    Bitmap profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +38,7 @@ public class AddNewProfileActivity extends Activity {
         setContentView(R.layout.activity_add_new_profile);
         newProfile = new Profile();
         editText = (EditText) findViewById(R.id.profile_title);
+        imageView = (ImageView) findViewById(R.id.profile_image);
     }
 
 
@@ -91,10 +87,8 @@ public class AddNewProfileActivity extends Activity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri uri = data.getData();
-            Log.d(TAG, "HERE 0");
 
             try {
-
                 // Useful stackoverflow post: http://stackoverflow.com/questions/3647993/android-bitmaps-loaded-from-gallery-are-rotated-in-imageview
 
                 // Get image's rotation
@@ -103,26 +97,25 @@ public class AddNewProfileActivity extends Activity {
 
                 Log.d(TAG, "Orientation is " + orientation);
 
-                Bitmap d = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                profileImage = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+
                 // Log.d(TAG, String.valueOf(bitmap));
 
                 // Rotate the image if it was taken vertically
                 if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
                     Matrix matrix = new Matrix();
                     matrix.postRotate(90);
-                    d = Bitmap.createBitmap(d, 0, 0, d.getWidth(), d.getHeight(), matrix, true);
+                    profileImage = Bitmap.createBitmap(profileImage, 0, 0, profileImage.getWidth(), profileImage.getHeight(), matrix, true);
                 }
-
-                ImageView imageView = (ImageView) findViewById(R.id.profile_pic);
 
                 // Credit: http://stackoverflow.com/questions/10271020/bitmap-too-large-to-be-uploaded-into-a-texture
                 // Scale the image so it's not too big to upload
-                int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
-                Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+                int nh = (int) ( profileImage.getHeight() * (512.0 / profileImage.getWidth()) );
+                profileImage = Bitmap.createScaledBitmap(profileImage, 512, nh, true);
                 Log.d(TAG, "Scaled image");
 
                 // Put the image into the ImageView
-                imageView.setImageBitmap(scaled);
+                imageView.setImageBitmap(profileImage);
 
             } catch (IOException e) {
                 Log.d(TAG, "In Exception");
@@ -147,9 +140,16 @@ public class AddNewProfileActivity extends Activity {
     private void saveProfile() throws SQLException {
 
         String name = editText.getText().toString();
-        newProfile.setName(name);
+
+        byte[] byteArray = new byte[0];
+        if (null != profileImage) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            profileImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+        }
+
         DBHelper database = new DBHelper(this);
-        database.createProfile(newProfile.getName(), new byte[0]);
+        newProfile = database.createProfile(name, byteArray);
     }
 
 

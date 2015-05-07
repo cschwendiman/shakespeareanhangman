@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -27,8 +29,10 @@ public class EditProfileActivity extends Activity {
     private long id;
     private Profile p;
     private EditText e;
+    private ImageView i;
     String TAG = "edit";
     DBHelper database;
+    Bitmap profileImage;
 
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -48,6 +52,13 @@ public class EditProfileActivity extends Activity {
         e = (EditText) findViewById(R.id.editProfileText);
         e.setHint(p.getName());
         e.setText(p.getName());
+
+        i = (ImageView) findViewById(R.id.profile_image);
+        byte[] byteArray = p.getImage();
+        if (byteArray.length > 0) {
+            profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            i.setImageBitmap(profileImage);
+        }
     }
 
 
@@ -95,7 +106,6 @@ public class EditProfileActivity extends Activity {
             Uri uri = data.getData();
 
             try {
-
                 // Useful stackoverflow post: http://stackoverflow.com/questions/3647993/android-bitmaps-loaded-from-gallery-are-rotated-in-imageview
 
                 // Get image's rotation
@@ -104,26 +114,25 @@ public class EditProfileActivity extends Activity {
 
                 Log.d(TAG, "Orientation is " + orientation);
 
-                Bitmap d = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                profileImage = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+
                 // Log.d(TAG, String.valueOf(bitmap));
 
                 // Rotate the image if it was taken vertically
                 if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
                     Matrix matrix = new Matrix();
                     matrix.postRotate(90);
-                    d = Bitmap.createBitmap(d, 0, 0, d.getWidth(), d.getHeight(), matrix, true);
+                    profileImage = Bitmap.createBitmap(profileImage, 0, 0, profileImage.getWidth(), profileImage.getHeight(), matrix, true);
                 }
-
-                ImageView imageView = (ImageView) findViewById(R.id.edited_profile_pic);
 
                 // Credit: http://stackoverflow.com/questions/10271020/bitmap-too-large-to-be-uploaded-into-a-texture
                 // Scale the image so it's not too big to upload
-                int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
-                Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+                int nh = (int) ( profileImage.getHeight() * (512.0 / profileImage.getWidth()) );
+                profileImage = Bitmap.createScaledBitmap(profileImage, 512, nh, true);
                 Log.d(TAG, "Scaled image");
 
                 // Put the image into the ImageView
-                imageView.setImageBitmap(scaled);
+                i.setImageBitmap(profileImage);
 
             } catch (IOException e) {
                 Log.d(TAG, "In Exception");
@@ -147,32 +156,17 @@ public class EditProfileActivity extends Activity {
 
 
     private void saveProfile() throws SQLException {
-
+        Log.d(TAG, "ATTEMPTING SAVE");
         String name = e.getText().toString();
         p.setName(name);
-        database.updateProfile(p);
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (null != profileImage) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            profileImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            p.setImage(byteArray);
         }
 
-        return super.onOptionsItemSelected(item);
+        database.updateProfile(p);
     }
 }

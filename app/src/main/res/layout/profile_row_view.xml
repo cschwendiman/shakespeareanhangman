@@ -8,6 +8,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
+            android:cropToPadding="true"
             android:id="@+id/profile_image"
             android:background="@drawable/border"
             android:src="@drawable/defaultprofileimage"

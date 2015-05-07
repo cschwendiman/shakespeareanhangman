@@ -1,11 +1,14 @@
 package cs371m.shakespeareanhangman;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,6 +41,13 @@ public class PlayerProfileAdapter extends ArrayAdapter<Profile> {
         TextView statsView = (TextView) rowView.findViewById(R.id.stats);
         String stats = profile.getWins() + " Wins | " + profile.getLosses() + " Losses";
         statsView.setText(stats);
+
+        ImageView i = (ImageView) rowView.findViewById(R.id.profile_image);
+        byte[] byteArray = profile.getImage();
+        if (byteArray.length > 0) {
+            Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            i.setImageBitmap(profileImage);
+        }
 
         Log.d(TAG, " GET VIEW FOR ROW " + profile.getName() + " PROFILE");
         return rowView;
