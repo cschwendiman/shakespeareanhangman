@@ -1,132 +1,169 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="cs371m.shakespeareanhangman.TwoPlayerSetupActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center_horizontal">
     <cs371m.shakespeareanhangman.ScriptView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="35sp"
             android:text="Choose Players"
-            android:id="@+id/two_player_setup_header" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:id="@+id/two_player_setup_header"
+            android:layout_margin="20dp"
             />
-    <TableLayout
-            android:layout_below="@+id/two_player_setup_header"
-            android:id="@+id/player_one_table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginBottom="20dp">
-        <TableRow
-                android:layout_width="match_parent" android:gravity="center">
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:id="@+id/player_one_image"
-                    android:src="@drawable/defaultprofileimage"
-                    android:layout_span="2"
-                    android:contentDescription="profile pic"
-                    android:layout_marginBottom="10dp"/>
 
-        </TableRow>
-        <TableRow
-                android:layout_width="match_parent" android:gravity="center">
+    <!-- PLAYER ONE -->
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+        <!-- PLAYER TWO -->
+        <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/player_one_image"
+                android:cropToPadding="true"
+                android:src="@drawable/defaultprofileimage"
+                android:background="@drawable/border"
+                android:contentDescription="Profile Image"
+                android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Player One:"
-                    android:id="@+id/player_one_label" android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="5dp"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Player One"
+                    android:id="@+id/player_one_header"
+                    android:layout_marginBottom="10dp"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Profile: Profile Name"
+                    android:id="@+id/player_one_name"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    />
+
             <Button
-                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select Player Profile"
+                    android:text="Change Profile"
                     android:id="@+id/choose_player_one"
-                    android:onClick="buttonPress" android:minWidth="160dp"/>
+                    android:onClick="buttonClick"
+                    android:layout_marginBottom="10dp"
+                    style="?android:attr/buttonStyleSmall"
+                    />
 
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Difficulty:"
+                        android:layout_marginRight="10dp"
+                        />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Diff"
+                        android:id="@+id/player_one_difficulty"
+                        android:clickable="true"
+                        android:onClick="buttonClick"
+                        style="?android:attr/buttonStyleSmall"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
-        </TableRow>
-        <TableRow
-                android:layout_width="match_parent" android:gravity="center">
+    <!-- PLAYER TWO -->
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+        <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/player_two_image"
+                android:cropToPadding="true"
+                android:src="@drawable/defaultprofileimage"
+                android:background="@drawable/border"
+                android:contentDescription="Profile Image"
+                android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Difficulty:"
-                    android:id="@+id/player_one_difficulty_label" android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="5dp"/>
-            <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Difficulty Level"
-                    android:id="@+id/player_one_difficulty"
-                    android:clickable="true"
-                    android:onClick="buttonPress"
-                    />
-        </TableRow>
-    </TableLayout>
-
-    <TableLayout
-            android:layout_below="@+id/player_one_table"
-            android:id="@+id/player_two_table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginBottom="20dp">
-        <TableRow
-                android:layout_width="match_parent" android:gravity="center">
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:id="@+id/player_two_image"
-                    android:src="@drawable/defaultprofileimage"
-                    android:layout_span="2"
-                    android:contentDescription="profile pic"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Player Two"
+                    android:id="@+id/player_two_header"
                     android:layout_marginBottom="10dp"/>
-
-        </TableRow>
-        <TableRow
-                android:layout_width="match_parent" android:gravity="center">
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Player Two:"
-                    android:id="@+id/player_two_label" android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="5dp"/>
-            <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Player Profile"
-                    android:id="@+id/choose_player_two"
-                    android:onClick="buttonPress" android:minWidth="160dp"/>
-
-
-        </TableRow>
-        <TableRow
-                android:layout_width="match_parent" android:gravity="center">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Difficulty:"
-                    android:id="@+id/player_two_difficulty_label" android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="5dp"/>
-            <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Difficulty Level"
-                    android:id="@+id/player_two_difficulty"
-                    android:clickable="true"
-                    android:onClick="buttonPress"
+                    android:text="Profile: Profile Name"
+                    android:id="@+id/player_two_name"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     />
-        </TableRow>
-    </TableLayout>
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Profile"
+                    android:id="@+id/choose_player_two"
+                    android:onClick="buttonClick"
+                    android:layout_marginBottom="10dp"
+                    style="?android:attr/buttonStyleSmall"
+                    />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Difficulty:"
+                        android:layout_marginRight="10dp"
+                        />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Diff"
+                        android:id="@+id/player_two_difficulty"
+                        android:clickable="true"
+                        android:onClick="buttonClick"
+                        style="?android:attr/buttonStyleSmall"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
     <Button
-            android:layout_below="@+id/player_two_table"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_game"
             android:id="@+id/start_game_button"
-            android:onClick="buttonPress" android:layout_centerHorizontal="true"/>
-</RelativeLayout>
+            android:onClick="buttonClick"/>
+</LinearLayout>

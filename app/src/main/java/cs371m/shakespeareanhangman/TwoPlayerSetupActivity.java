@@ -6,12 +6,17 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -60,16 +65,32 @@ public class TwoPlayerSetupActivity extends Activity {
         for (Profile p : profiles) {
             if (p.getId() == playerOneProfileId) {
                 playerOneProfileIndex = i;
+                byte[] byteArray = p.getImage();
+                if (byteArray.length > 0) {
+                    ImageView iv = (ImageView) findViewById(R.id.player_one_image);
+                    Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    iv.setImageBitmap(profileImage);
+                }
+                TextView tv = (TextView) findViewById(R.id.player_one_name);
+                tv.setText("Profile: " + p.getName());
             }
             if (p.getId() == playerTwoProfileId) {
                 playerTwoProfileIndex = i;
+                byte[] byteArray = p.getImage();
+                if (byteArray.length > 0) {
+                    ImageView iv = (ImageView) findViewById(R.id.player_two_image);
+                    Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    iv.setImageBitmap(profileImage);
+                }
+                TextView tv = (TextView) findViewById(R.id.player_two_name);
+                tv.setText("Profile: " + p.getName());
             }
             i++;
         }
     }
 
     // Handle button presses from the user
-    public void buttonPress(View view) {
+    public void buttonClick(View view) {
         Intent intent;
         switch (view.getId()) {
             // User wishes to select the difficulty level for player1 or player2
@@ -176,12 +197,31 @@ public class TwoPlayerSetupActivity extends Activity {
                         Profile p = profiles.get(item);
                         if (playerOne) {
                             playerOneProfileIndex = item;
+                            byte[] byteArray = p.getImage();
+                            ImageView iv = (ImageView) findViewById(R.id.player_one_image);
+                            if (byteArray.length > 0) {
+                                Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                                iv.setImageBitmap(profileImage);
+                            }
+                            else {
+                                iv.setImageDrawable(getResources().getDrawable(R.drawable.defaultprofileimage));
+                            }
+                            TextView tv = (TextView) findViewById(R.id.player_one_name);
+                            tv.setText("Profile: " + p.getName());
                         } else {
                             playerTwoProfileIndex = item;
+                            byte[] byteArray = p.getImage();
+                            ImageView iv = (ImageView) findViewById(R.id.player_two_image);
+                            if (byteArray.length > 0) {
+                                Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                                iv.setImageBitmap(profileImage);
+                            }
+                            else {
+                                iv.setImageDrawable(getResources().getDrawable(R.drawable.defaultprofileimage));
+                            }
+                            TextView tv = (TextView) findViewById(R.id.player_two_name);
+                            tv.setText("Profile: " + p.getName());
                         }
-                        // Change button text to the name of the selected player
-                        Button b = (Button) findViewById(viewid);
-                        b.setText(p.getName());
                     }
                 });
 
