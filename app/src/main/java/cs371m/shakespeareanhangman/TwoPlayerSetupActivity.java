@@ -60,7 +60,7 @@ public class TwoPlayerSetupActivity extends Activity {
         Button p2db = (Button) findViewById(R.id.player_two_difficulty);
         p2db.setText(difficultyLevels[playerTwoDifficulty]);
 
-        DBHelper database = new DBHelper(this);
+        DBHelper database = DBHelper.getInstance(this);
         profiles = database.getAllProfiles();
         long playerOneProfileId = prefs.getLong("playerId1", prefs.getLong("currentPlayerId", 0));
         long playerTwoProfileId = prefs.getLong("playerId2", 0);

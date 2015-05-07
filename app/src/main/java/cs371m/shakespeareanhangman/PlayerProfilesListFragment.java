@@ -19,7 +19,7 @@ public class PlayerProfilesListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, " onCreate");
         super.onCreate(savedInstanceState);
-        DBHelper dbHelper = new DBHelper(getActivity());
+        DBHelper dbHelper = DBHelper.getInstance(getActivity());
         List<Profile> profiles = dbHelper.getAllProfiles();
         adapter = new PlayerProfileAdapter(getActivity(), R.layout.profile_row_view, profiles);
         adapter.addAll(profiles);
@@ -31,7 +31,7 @@ public class PlayerProfilesListFragment extends ListFragment {
         Log.d(TAG, " onResume");
         super.onResume();
         adapter.clear();
-        DBHelper dbHelper = new DBHelper(getActivity());
+        DBHelper dbHelper = DBHelper.getInstance(getActivity());
         List<Profile> profiles = dbHelper.getAllProfiles();
         adapter.addAll(profiles);
         adapter.notifyDataSetChanged();

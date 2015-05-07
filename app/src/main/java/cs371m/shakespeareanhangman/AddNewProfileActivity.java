@@ -152,7 +152,7 @@ public class AddNewProfileActivity extends Activity {
             byteArray = stream.toByteArray();
         }
 
-        DBHelper database = new DBHelper(this);
+        DBHelper database = DBHelper.getInstance(this);
         newProfile = database.createProfile(name, byteArray);
     }
 

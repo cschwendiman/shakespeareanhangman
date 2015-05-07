@@ -16,6 +16,8 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG = "DB Helper";
 
+    private static DBHelper dBInstance = null;
+
     public static final String DATABASE_NAME = "shakespeareanhangman.db";
     public static final String PROFILES_TABLE_NAME = "profiles";
     public static final String PROFILES_COLUMN_ID = "id";
@@ -28,6 +30,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context)
     {
         super(context, DATABASE_NAME , null, 1);
+    }
+
+    public static DBHelper getInstance(Context context) {
+        if (dBInstance == null) {
+            dBInstance = new DBHelper(context.getApplicationContext());
+        }
+        return dBInstance;
     }
 
 

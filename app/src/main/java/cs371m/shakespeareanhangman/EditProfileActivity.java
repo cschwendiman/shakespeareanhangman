@@ -43,7 +43,7 @@ public class EditProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        database = new DBHelper(this);
+        database = DBHelper.getInstance(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             id = extras.getLong("profile_id");

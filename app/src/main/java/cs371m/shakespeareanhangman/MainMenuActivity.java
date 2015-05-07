@@ -25,7 +25,7 @@ public class MainMenuActivity extends Activity {
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
         boolean initialized = prefs.getBoolean("initialized", false);
         if (! initialized) {
-            dbHelper = new DBHelper(this);
+            dbHelper = DBHelper.getInstance(this);
             Profile profile = dbHelper.createProfile("Default", new byte[0]);
 
             SharedPreferences.Editor ed = prefs.edit();

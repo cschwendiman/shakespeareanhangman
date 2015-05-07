@@ -41,7 +41,7 @@ public class OptionsActivity extends Activity {
 
         prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
 
-        DBHelper database = new DBHelper(this);
+        DBHelper database = DBHelper.getInstance(this);
         profiles = database.getAllProfiles();
         long currentPlayerId = prefs.getLong("currentPlayerId", 0);
         selectedProfile = database.getProfile(currentPlayerId);

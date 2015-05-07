@@ -37,7 +37,7 @@ public class TournamentResultActivity extends Activity {
             mediaPlayer.start();
         }
 
-        DBHelper dbHelper = new DBHelper(this);
+        DBHelper dbHelper = DBHelper.getInstance(this);
 
         // Get the players' names and scores
         playerName1 = prefs.getString("playerName1", "Player 1");

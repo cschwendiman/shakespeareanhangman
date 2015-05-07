@@ -24,7 +24,7 @@ public class ResultsActivity extends Activity {
         boolean soundOn = prefs.getBoolean("soundToggle",false);
         long currentPlayerId = prefs.getLong("currentPlayerId", 0);
 
-        DBHelper dbHelper = new DBHelper(this);
+        DBHelper dbHelper = DBHelper.getInstance(this);
         Profile profile = dbHelper.getProfile(currentPlayerId);
 
         Bundle extras = getIntent().getExtras();
