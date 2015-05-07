@@ -146,9 +146,10 @@ public class EditProfileActivity extends Activity {
                 // Put the image into the ImageView
                 i.setImageBitmap(profileImage);
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.d(TAG, "In Exception");
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Oops! Image selection does not work on your device.",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -162,6 +163,9 @@ public class EditProfileActivity extends Activity {
         } else {
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            if (idx < 0) {
+                return contentURI.getPath();
+            }
             return cursor.getString(idx);
         }
     }
