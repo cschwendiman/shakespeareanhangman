@@ -17,7 +17,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:id="@+id/profilePic"
+            android:id="@+id/profile_image"
             android:cropToPadding="true"
             android:src="@drawable/defaultprofileimage"
             android:background="@drawable/border"
