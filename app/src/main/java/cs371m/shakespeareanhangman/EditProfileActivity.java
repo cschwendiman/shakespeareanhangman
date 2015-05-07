@@ -1,7 +1,9 @@
 package cs371m.shakespeareanhangman;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -83,8 +85,18 @@ public class EditProfileActivity extends Activity {
                 finish();
                 break;
             case R.id.delete_profile:
-                database.deleteProfile(database.getProfile(id));
-                finish();
+                SharedPreferences prefs = getSharedPreferences("shake_prefs", MODE_PRIVATE);
+                if(id == prefs.getLong("currentPlayerId", id)) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Cannot delete profile because it is selected in Options.";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    database.deleteProfile(database.getProfile(id));
+                    finish();
+                }
                 break;
             case R.id.edit_profile_photo_button:
                 Log.d(TAG, "Trying to add photo");
