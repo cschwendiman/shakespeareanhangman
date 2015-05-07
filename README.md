@@ -17,4 +17,4 @@ Like word games? Love Shakespeare? Test your knowledge of the Bard and learn new
 ![Screenshot 3](http://placehold.it/200x300)
 
 ### Authors
-Shakespearean Hangman is the work of Katherine Thayer (@KatherineThayer), Matt Hendrickson(@MatthewHendy), and Cassie Schwendiman (@cschwendiman).
+Shakespearean Hangman is the work of Katherine Thayer ([@KatherineThayer](https://github.com/KatherineThayer)), Matt Hendrickson([@MatthewHendy](https://github.com/MatthewHendy)), and Cassie Schwendiman ([@cschwendiman](https://github.com/cschwendiman)).
