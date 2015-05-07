@@ -33,6 +33,9 @@ public class TwoPlayerSetupActivity extends Activity {
     private int playerOneProfileIndex;
     private int playerTwoProfileIndex;
 
+    private boolean playerOneSet = false;
+    private boolean playerTwoSet = false;
+
     final CharSequence[] difficultyLevels = {
             "Easy",
             "Medium",
@@ -73,6 +76,7 @@ public class TwoPlayerSetupActivity extends Activity {
                 }
                 TextView tv = (TextView) findViewById(R.id.player_one_name);
                 tv.setText("Profile: " + p.getName());
+                playerOneSet = true;
             }
             if (p.getId() == playerTwoProfileId) {
                 playerTwoProfileIndex = i;
@@ -84,8 +88,26 @@ public class TwoPlayerSetupActivity extends Activity {
                 }
                 TextView tv = (TextView) findViewById(R.id.player_two_name);
                 tv.setText("Profile: " + p.getName());
+                playerTwoSet = true;
             }
             i++;
+        }
+
+        if (playerTwoProfileId == 0) {
+            if (playerOneProfileIndex == 0 && profiles.size() > 1) {
+                playerTwoProfileIndex = 1;
+            } else {
+                playerTwoProfileIndex = 0;
+            }
+            Profile p = profiles.get(playerTwoProfileIndex);
+            byte[] byteArray = p.getImage();
+            if (byteArray.length > 0) {
+                ImageView iv = (ImageView) findViewById(R.id.player_two_image);
+                Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                iv.setImageBitmap(profileImage);
+            }
+            TextView tv = (TextView) findViewById(R.id.player_two_name);
+            tv.setText("Profile: " + p.getName());
         }
     }
 
@@ -111,6 +133,12 @@ public class TwoPlayerSetupActivity extends Activity {
             // User is happy with the selections and wishes to start the tournament
             case R.id.start_game_button:
                 Log.d(TAG, "Start game button pressed");
+
+                if (!playerOneSet || !playerTwoSet) {
+                    Toast.makeText(getApplicationContext(), "You must select a profile for both players before beginning.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Profile player1 = profiles.get(playerOneProfileIndex);
                 Profile player2 = profiles.get(playerTwoProfileIndex);
@@ -208,6 +236,7 @@ public class TwoPlayerSetupActivity extends Activity {
                             }
                             TextView tv = (TextView) findViewById(R.id.player_one_name);
                             tv.setText("Profile: " + p.getName());
+                            playerOneSet = true;
                         } else {
                             playerTwoProfileIndex = item;
                             byte[] byteArray = p.getImage();
@@ -221,6 +250,7 @@ public class TwoPlayerSetupActivity extends Activity {
                             }
                             TextView tv = (TextView) findViewById(R.id.player_two_name);
                             tv.setText("Profile: " + p.getName());
+                            playerTwoSet = true;
                         }
                     }
                 });

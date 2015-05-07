@@ -46,7 +46,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Profile: Profile Name"
+                    android:text="Profile: None"
                     android:id="@+id/player_one_name"
                     android:layout_marginBottom="10dp"
                     android:ellipsize="end"
@@ -119,7 +119,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Profile: Profile Name"
+                    android:text="Profile: None"
                     android:id="@+id/player_two_name"
                     android:layout_marginBottom="10dp"
                     android:ellipsize="end"
