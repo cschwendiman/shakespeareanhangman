@@ -77,7 +77,7 @@ public class EditProfileActivity extends Activity {
                 String name = e.getText().toString();
                 if (name.equals("") || name.equals(null))
                 {
-                    Toast.makeText(getApplicationContext(), "must enter a name",
+                    Toast.makeText(getApplicationContext(), "Must enter a name",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -146,9 +146,10 @@ public class EditProfileActivity extends Activity {
                 // Put the image into the ImageView
                 i.setImageBitmap(profileImage);
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.d(TAG, "In Exception");
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Oops! Image selection does not work on your device.",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
