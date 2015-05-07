@@ -133,6 +133,9 @@ public class OptionsActivity extends Activity {
                                     Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                                     i.setImageBitmap(profileImage);
                                 }
+                                else {
+                                    i.setImageDrawable(getResources().getDrawable(R.drawable.defaultprofileimage));
+                                }
 
                                 Toast.makeText(getApplicationContext(), "Profile '" + selectedProfile.getName() + "' selected",
                                         Toast.LENGTH_SHORT).show();
