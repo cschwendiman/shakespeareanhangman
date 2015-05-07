@@ -5,13 +5,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+import android.widget.*;
 
 import java.util.List;
 
@@ -62,6 +61,16 @@ public class OptionsActivity extends Activity {
         difficulty = prefs.getInt("difficulty",0);
         Button difficultyButton = (Button) findViewById(R.id.difficulty_button);
         difficultyButton.setText(difficultyLevels[difficulty]);
+
+        TextView t = (TextView) findViewById(R.id.profile_name);
+        t.setText("Profile: " + selectedProfile.getName());
+
+        ImageView i = (ImageView) findViewById(R.id.profile_image);
+        byte[] byteArray = selectedProfile.getImage();
+        if (byteArray.length > 0) {
+            Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            i.setImageBitmap(profileImage);
+        }
     }
 
     protected void onPause()
@@ -117,6 +126,17 @@ public class OptionsActivity extends Activity {
                                 selectedProfile = profiles.get(item);
                                 TextView t = (TextView) findViewById(R.id.profile_name);
                                 t.setText("Profile: " + selectedProfile.getName());
+
+                                ImageView i = (ImageView) findViewById(R.id.profile_image);
+                                byte[] byteArray = selectedProfile.getImage();
+                                if (byteArray.length > 0) {
+                                    Bitmap profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                                    i.setImageBitmap(profileImage);
+                                }
+                                else {
+                                    i.setImageDrawable(getResources().getDrawable(R.drawable.defaultprofileimage));
+                                }
+
                                 Toast.makeText(getApplicationContext(), "Profile '" + selectedProfile.getName() + "' selected",
                                         Toast.LENGTH_SHORT).show();
                             }

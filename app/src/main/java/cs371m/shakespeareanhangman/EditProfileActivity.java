@@ -163,6 +163,9 @@ public class EditProfileActivity extends Activity {
         } else {
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            if (idx < 0) {
+                return contentURI.getPath();
+            }
             return cursor.getString(idx);
         }
     }
