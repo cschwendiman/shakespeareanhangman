@@ -258,3 +258,8 @@ a {
   float: right;
   height: 250px;
 }
+
+#screenshots-carousel img {
+  height: 400px;
+  margin: 0 20px;
+}
