@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class EditProfileActivity extends Activity {
@@ -60,6 +62,13 @@ public class EditProfileActivity extends Activity {
         if (byteArray.length > 0) {
             profileImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             i.setImageBitmap(profileImage);
+        }
+
+        List<Profile> list = database.getAllProfiles();
+        if(list.size() == 1)
+        {
+            Button btn = (Button) findViewById(R.id.delete_profile);
+            btn.setEnabled(false);
         }
     }
 
